@@ -68,7 +68,6 @@
       padding: 14px 16px;
 
       border-radius: 10px;
-
       background: var(--banner);
       color: var(--white);
     }
@@ -87,7 +86,7 @@
       font-weight: 600;
     }
 
-    /* MOBILE DEFAULT = 2 COLUMNS */
+    /* MOBILE = 2 COLUMNS */
     .game-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -112,16 +111,6 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-    }
-
-    .no-image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      color: #999;
-      font-size: 13px;
     }
 
     .game-info {
@@ -171,7 +160,7 @@
       color: #a00000;
     }
 
-    /* MODAL - MOBILE */
+    /* MODAL MOBILE */
     .modal {
       display: none;
       position: fixed;
@@ -511,7 +500,6 @@
       document.createElement('span');
 
     count.className = 'series-count';
-
     count.textContent =
       games.length + ' เรื่อง';
 
@@ -533,10 +521,7 @@
     section.appendChild(grid);
     catalog.appendChild(section);
 
-    setSeriesRatio(
-      section,
-      games
-    );
+    setSeriesRatio(section);
   }
 
 
@@ -551,26 +536,20 @@
 
     cover.className = 'cover';
 
-    if (game.cover) {
-      const img =
-        document.createElement('img');
+    const img =
+      document.createElement('img');
 
-      img.src = game.cover;
-      img.alt =
-        String(game.gameName || '');
-      img.loading = 'lazy';
+    img.alt =
+      String(game.gameName || '');
 
-      cover.appendChild(img);
+    img.loading = 'lazy';
 
-    } else {
-      const noImage =
-        document.createElement('div');
+    setCoverImage(
+      img,
+      game.gameId
+    );
 
-      noImage.className = 'no-image';
-      noImage.textContent = 'No image';
-
-      cover.appendChild(noImage);
-    }
+    cover.appendChild(img);
 
     const info =
       document.createElement('div');
@@ -655,53 +634,93 @@
   }
 
 
-  function setSeriesRatio(
-    section,
-    games
+  /* หาไฟล์รูปจาก Game ID
+     รองรับ webp / png / jpg / jpeg */
+  function setCoverImage(
+    img,
+    gameId
   ) {
+    const extensions = [
+      'webp',
+      'png',
+      'jpg',
+      'jpeg'
+    ];
+
+    let index = 0;
+
+    function tryNext() {
+      if (index >= extensions.length) {
+        img.removeAttribute('src');
+        img.alt = 'No image';
+        return;
+      }
+
+      img.src =
+        'covers/' +
+        encodeURIComponent(
+          String(gameId || '').trim()
+        ) +
+        '.' +
+        extensions[index];
+
+      index++;
+    }
+
+    img.onerror = tryNext;
+
+    tryNext();
+  }
+
+
+  /* ใช้รูปแรกของ Series
+     กำหนดสัดส่วนให้ทุกเกมใน Series */
+  function setSeriesRatio(section) {
     const covers =
       section.querySelectorAll('.cover');
+
+    const images =
+      section.querySelectorAll('.cover img');
 
     covers.forEach(function(cover) {
       cover.style.aspectRatio = '3 / 4';
     });
 
-    const firstGame =
-      games.find(function(game) {
-        return (
-          game.cover &&
-          String(game.cover).trim() !== ''
-        );
+    if (!images.length) return;
+
+    const firstImage = images[0];
+
+    function applyRatio() {
+      if (
+        !firstImage.naturalWidth ||
+        !firstImage.naturalHeight
+      ) {
+        return;
+      }
+
+      const ratio =
+        firstImage.naturalWidth +
+        ' / ' +
+        firstImage.naturalHeight;
+
+      covers.forEach(function(cover) {
+        cover.style.aspectRatio =
+          ratio;
       });
+    }
 
-    if (!firstGame) return;
-
-    const testImage = new Image();
-
-    testImage.onload =
-      function() {
-        if (
-          !testImage.naturalWidth ||
-          !testImage.naturalHeight
-        ) {
-          return;
-        }
-
-        const ratio =
-          testImage.naturalWidth +
-          ' / ' +
-          testImage.naturalHeight;
-
-        covers.forEach(
-          function(cover) {
-            cover.style.aspectRatio =
-              ratio;
-          }
-        );
-      };
-
-    testImage.src =
-      firstGame.cover;
+    if (
+      firstImage.complete &&
+      firstImage.naturalWidth
+    ) {
+      applyRatio();
+    } else {
+      firstImage.addEventListener(
+        'load',
+        applyRatio,
+        { once: true }
+      );
+    }
   }
 
 
@@ -740,16 +759,14 @@
         'modalCover'
       );
 
-    if (game.cover) {
-      cover.src = game.cover;
-      cover.alt =
-        String(game.gameName || '');
-      cover.style.display = 'block';
+    cover.style.display = 'block';
+    cover.alt =
+      String(game.gameName || '');
 
-    } else {
-      cover.removeAttribute('src');
-      cover.style.display = 'none';
-    }
+    setCoverImage(
+      cover,
+      game.gameId
+    );
 
     document
       .getElementById('modal')
