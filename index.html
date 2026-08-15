@@ -1,870 +1,1414 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Murder Mystery</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101010" />
+  <title>Murder Mystery Catalog</title>
 
   <style>
     :root {
-      --bg: #f4f1eb;
-      --text: #221f1c;
-      --muted: #746d65;
-      --accent: #7b2434;
-      --banner: #292724;
-      --white: #ffffff;
+      --bg: #101010;
+      --surface: #191919;
+      --surface-2: #222222;
+      --line: #303030;
+      --text: #f5f5f5;
+      --muted: #b9b9b9;
+      --accent: #d6ae63;
+      --ready: #5eaa72;
+      --soon: #d7aa4c;
+      --preparing: #5d8fc9;
+      --maintenance: #c86666;
+      --radius: 20px;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: var(--bg);
+      min-height: 100vh;
       color: var(--text);
+      background:
+        radial-gradient(
+          circle at top,
+          rgba(214, 174, 99, 0.08),
+          transparent 30%
+        ),
+        var(--bg);
       font-family:
+        system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        "Noto Sans Thai",
-        Tahoma,
         sans-serif;
     }
 
-    header {
-      padding: 24px 16px 10px;
-      text-align: center;
+    button,
+    input,
+    select {
+      font: inherit;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
+    .page {
+      width: min(1180px, calc(100% - 24px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 28px 0 18px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.76rem;
       font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
-    main {
-      width: 100%;
-      padding: 0 16px 60px;
-    }
-
-    .series {
-      margin-top: 34px;
-    }
-
-    .series:first-child {
-      margin-top: 24px;
-    }
-
-    .series-banner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-
-      width: 100%;
-      margin-bottom: 16px;
-      padding: 14px 16px;
-
-      border-radius: 10px;
-      background: var(--banner);
-      color: var(--white);
-    }
-
-    .series-banner h2 {
+    h1 {
       margin: 0;
-      font-size: 23px;
-      font-weight: 800;
-      line-height: 1.2;
+      font-size: clamp(2rem, 7vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.045em;
     }
 
-    .series-count {
-      flex-shrink: 0;
-      color: rgba(255,255,255,.72);
-      font-size: 13px;
-      font-weight: 600;
+    .intro {
+      max-width: 700px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
     }
 
-    /* MOBILE = 2 COLUMNS */
-    .game-grid {
+    .controls-shell {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 10px 0 14px;
+
+      background: linear-gradient(
+        180deg,
+        rgba(16, 16, 16, 0.98) 0%,
+        rgba(16, 16, 16, 0.94) 78%,
+        rgba(16, 16, 16, 0) 100%
+      );
+
+      backdrop-filter: blur(8px);
+    }
+
+    .controls {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 28px 14px;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      gap: 10px;
+    }
+
+    .search,
+    .filter {
+      width: 100%;
+      min-height: 48px;
+
+      border: 1px solid var(--line);
+      border-radius: 14px;
+
+      background: rgba(25, 25, 25, 0.96);
+      color: var(--text);
+
+      padding: 0 15px;
+
+      outline: none;
+    }
+
+    .search:focus,
+    .filter:focus {
+      border-color: var(--accent);
+
+      box-shadow:
+        0 0 0 3px rgba(214, 174, 99, 0.12);
+    }
+
+    .count {
+      margin: 4px 0 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .catalog {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 22px;
+
+      padding-bottom: 42px;
     }
 
     .game-card {
-      min-width: 0;
-    }
-
-    .cover {
-      width: 100%;
-      aspect-ratio: 3 / 4;
       overflow: hidden;
-      border-radius: 10px;
-      background: #ddd;
-      cursor: pointer;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--surface-2),
+          var(--surface)
+        );
+
+      box-shadow: var(--shadow);
     }
 
-    .cover img {
-      display: block;
+    .cover-shell {
+      position: relative;
+
       width: 100%;
-      height: 100%;
+
+      min-height: 220px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(214, 174, 99, 0.12),
+          transparent 60%
+        ),
+        #151515;
+
+      display: grid;
+
+      place-items: center;
+
+      overflow: hidden;
+    }
+
+    .cover-image {
+      width: 100%;
+      height: auto;
+
+      max-height: 720px;
+
+      display: block;
+
       object-fit: contain;
+
+      background: #111111;
     }
 
-    .game-info {
-      padding-top: 9px;
+    .cover-placeholder {
+      min-height: 300px;
+
+      width: 100%;
+
+      display: grid;
+
+      place-items: center;
+
+      padding: 28px;
+
+      text-align: center;
+
+      color: #888888;
+
+      font-weight: 700;
+
+      letter-spacing: 0.04em;
     }
 
-    .game-title {
-      font-size: 18px;
+    .status-badge {
+      position: absolute;
+
+      left: 14px;
+      bottom: 14px;
+
+      z-index: 2;
+
+      padding: 8px 13px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(215, 170, 76, 0.96);
+
+      color: #171717;
+
+      font-size: 0.9rem;
+
+      font-weight: 900;
+
+      letter-spacing: 0.02em;
+
+      box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.28);
+
+      backdrop-filter: blur(8px);
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .genre {
+      color: var(--accent);
+
+      font-size: 0.82rem;
+
       font-weight: 800;
-      line-height: 1.3;
-      cursor: pointer;
+
+      margin-bottom: 8px;
     }
 
-    .game-meta {
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.45;
+    .title {
+      margin: 0;
+
+      font-size:
+        clamp(1.4rem, 3vw, 2rem);
+
+      line-height: 1.2;
+
+      letter-spacing: -0.02em;
+    }
+
+    .meta {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin:
+        14px 0 16px;
+    }
+
+    .tag {
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        999px;
+
+      background:
+        #262626;
+
+      color:
+        #dddddd;
+
+      padding:
+        7px 10px;
+
+      font-size:
+        0.86rem;
+    }
+
+    .summary {
+      margin: 0;
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.72;
+
+      white-space:
+        pre-line;
+    }
+
+    .characters {
+      margin-top:
+        16px;
+
+      color:
+        #dddddd;
+
+      line-height:
+        1.6;
+
+      font-size:
+        0.94rem;
+    }
+
+    .price-row {
+      display:
+        flex;
+
+      align-items:
+        end;
+
+      justify-content:
+        space-between;
+
+      gap:
+        14px;
+
+      margin-top:
+        18px;
+
+      padding-top:
+        16px;
+
+      border-top:
+        1px solid var(--line);
+    }
+
+    .price-label {
+      color:
+        var(--muted);
+
+      font-size:
+        0.8rem;
+
+      margin-bottom:
+        3px;
     }
 
     .price {
-      margin-top: 6px;
-      color: var(--accent);
-      font-size: 17px;
-      font-weight: 800;
+      color:
+        var(--accent);
+
+      font-size:
+        1.25rem;
+
+      font-weight:
+        900;
     }
 
-    .coming-soon {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 6px 11px;
-      border-radius: 999px;
-      background: #242424;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
+    .price-muted {
+      color:
+        var(--muted);
     }
 
-    .message {
-      padding: 80px 20px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 16px;
+    .state {
+      grid-column:
+        1 / -1;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        var(--surface);
+
+      color:
+        var(--muted);
+
+      padding:
+        28px;
+
+      text-align:
+        center;
     }
 
-    .error {
-      color: #a00000;
+    .state strong {
+      display:
+        block;
+
+      color:
+        var(--text);
+
+      margin-bottom:
+        6px;
     }
 
-    /* MODAL MOBILE */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 10px;
-      background: rgba(0,0,0,.68);
+    footer {
+      color:
+        #777777;
+
+      text-align:
+        center;
+
+      font-size:
+        0.82rem;
+
+      padding:
+        0 0 28px;
     }
 
-    .modal.open {
-      display: flex;
-    }
+    @media (max-width: 760px) {
 
-    .modal-box {
-      position: relative;
-      width: 100%;
-      max-height: 92vh;
-      overflow-y: auto;
-      padding: 20px;
-      border-radius: 22px 22px 12px 12px;
-      background: #fff;
-      box-shadow: 0 20px 70px rgba(0,0,0,.25);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 2;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 40px;
-      height: 40px;
-      padding: 0;
-
-      border: 0;
-      border-radius: 50%;
-
-      background: #222;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .modal-content {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    .modal-cover {
-      display: block;
-      width: min(70%, 300px);
-      max-height: 46vh;
-      margin: 0 auto;
-      object-fit: contain;
-      border-radius: 10px;
-    }
-
-    .modal-title {
-      margin: 0 48px 14px 0;
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.3;
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .chip {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: #f0ece6;
-      font-size: 15px;
-    }
-
-    .modal-price {
-      margin: 4px 0 20px;
-      color: var(--accent);
-      font-size: 19px;
-      font-weight: 800;
-    }
-
-    .story-title {
-      margin-bottom: 6px;
-      font-size: 17px;
-      font-weight: 800;
-    }
-
-    .story {
-      margin: 0;
-      color: #49433d;
-      font-size: 16px;
-      line-height: 1.7;
-      white-space: pre-line;
-    }
-
-    /* DESKTOP = 4 COLUMNS */
-    @media (min-width: 900px) {
-      header {
-        padding: 30px 20px 10px;
+      .page {
+        width:
+          min(100% - 16px, 1180px);
       }
 
-      header h1 {
-        font-size: 38px;
+      .hero {
+        padding-top:
+          22px;
       }
 
-      main {
-        width: min(920px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 0 0 70px;
+      .controls {
+        grid-template-columns:
+          1fr;
       }
 
-      .series {
-        margin-top: 42px;
+      .catalog {
+        grid-template-columns:
+          1fr;
+
+        gap:
+          16px;
       }
 
-      .series-banner h2 {
-        font-size: 22px;
+      .game-card {
+        border-radius:
+          16px;
       }
 
-      .game-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 28px 18px;
+      .card-body {
+        padding:
+          17px;
       }
 
-      .game-title {
-        font-size: 15px;
+      .cover-image {
+        max-height:
+          none;
       }
 
-      .game-meta {
-        font-size: 13px;
+      .cover-placeholder {
+        min-height:
+          260px;
       }
 
-      .price {
-        font-size: 15px;
-      }
-
-      .modal {
-        align-items: center;
-        padding: 16px;
-      }
-
-      .modal-box {
-        width: min(800px, 100%);
-        max-height: 90vh;
-        padding: 26px;
-        border-radius: 20px;
-      }
-
-      .modal-content {
-        grid-template-columns: minmax(0, 280px) 1fr;
-        gap: 26px;
-      }
-
-      .modal-cover {
-        width: 100%;
-        max-height: 70vh;
-        margin: 0;
-      }
-
-      .modal-title {
-        font-size: 30px;
-      }
-
-      .chip {
-        font-size: 13px;
-      }
-
-      .story {
-        font-size: 15px;
-      }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Murder Mystery</h1>
-</header>
+  <div class="page">
 
-<main id="catalog">
-  <div class="message">กำลังโหลดรายการเกม...</div>
-</main>
+    <section class="hero">
 
-<div class="modal" id="modal">
-  <div class="modal-box">
+      <div class="eyebrow">
+        Murder Mystery
+      </div>
 
-    <button
-      class="modal-close"
-      id="closeButton"
-      type="button"
-      aria-label="ปิด"
-    >
-      ×
-    </button>
+      <h1>
+        Game Catalog
+      </h1>
 
-    <div class="modal-content">
+      <p class="intro">
+        รวมเกมที่พร้อมให้เล่น เกมที่กำลังจะเปิด และเกมที่อยู่ระหว่างเตรียมการ
+      </p>
 
-      <img
-        id="modalCover"
-        class="modal-cover"
-        alt=""
-      >
+    </section>
 
-      <div>
 
-        <h3
-          id="modalTitle"
-          class="modal-title"
-        ></h3>
+    <section class="controls-shell">
 
-        <div class="chips">
-          <span id="modalPlayers" class="chip"></span>
-          <span id="modalTime" class="chip"></span>
-        </div>
+      <div class="controls">
 
-        <div
-          id="modalPrice"
-          class="modal-price"
-        ></div>
+        <input
+          id="searchInput"
+          class="search"
+          type="search"
+          placeholder="ค้นหาชื่อเรื่อง แนวเกม หรือเรื่องย่อ..."
+          autocomplete="off"
+        />
 
-        <div class="story-title">
-          เรื่องย่อ
-        </div>
+        <select
+          id="statusFilter"
+          class="filter"
+        >
 
-        <p
-          id="modalStory"
-          class="story"
-        ></p>
+          <option value="">
+            ทุกสถานะ
+          </option>
+
+          <option value="พร้อมให้เล่น">
+            พร้อมให้เล่น
+          </option>
+
+          <option value="เร็ว ๆ นี้">
+            เร็ว ๆ นี้
+          </option>
+
+          <option value="กำลังเตรียมเกม">
+            กำลังเตรียมเกม
+          </option>
+
+          <option value="ปิดปรับปรุง">
+            ปิดปรับปรุง
+          </option>
+
+        </select>
 
       </div>
 
-    </div>
+    </section>
+
+
+    <p
+      id="summaryLine"
+      class="count"
+    >
+      กำลังโหลดข้อมูล...
+    </p>
+
+
+    <main
+      id="catalog"
+      class="catalog"
+    >
+
+      <div class="state">
+
+        <strong>
+          กำลังโหลดแคตตาล็อก
+        </strong>
+
+        กรุณารอสักครู่
+
+      </div>
+
+    </main>
+
+
+    <footer>
+      ข้อมูลในหน้านี้ดึงจาก Google Sheets
+    </footer>
+
   </div>
-</div>
-
-<script>
-  const API_URL =
-    'https://script.google.com/macros/s/AKfycbw661bYeWAZN6KsjPgU_w53E_2AqtFOwZQC2YDIYsK9gUmeotr2Le3Y9HaI9qsel7id/exec';
 
 
-  loadGames();
+  <script>
+
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbw661bYeWAZN6KsjPgU_w53E_2AqtFOwZQC2YDIYsK9gUmeotr2Le3Y9HaI9qsel7id/exec";
 
 
-  async function loadGames() {
-    try {
-      const response = await fetch(API_URL);
-
-      if (!response.ok) {
-        throw new Error('HTTP ' + response.status);
-      }
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || 'API Error');
-      }
-
-      renderCatalog(data.games);
-
-    } catch (error) {
-      showError(error);
-    }
-  }
-
-
-  function renderCatalog(games) {
     const catalog =
-      document.getElementById('catalog');
+      document.getElementById("catalog");
 
-    catalog.innerHTML = '';
+    const searchInput =
+      document.getElementById("searchInput");
 
-    if (!Array.isArray(games) || games.length === 0) {
-      catalog.innerHTML =
-        '<div class="message">ยังไม่มีรายการเกม</div>';
-      return;
-    }
+    const statusFilter =
+      document.getElementById("statusFilter");
 
-    const seriesMap = {};
-
-    games.forEach(function(game) {
-      const seriesName =
-        String(game.series || '').trim();
-
-      if (!seriesName) return;
-
-      if (!seriesMap[seriesName]) {
-        seriesMap[seriesName] = [];
-      }
-
-      seriesMap[seriesName].push(game);
-    });
-
-    Object.keys(seriesMap)
-      .forEach(function(seriesName) {
-        createSeries(
-          catalog,
-          seriesName,
-          seriesMap[seriesName]
-        );
-      });
-  }
+    const summaryLine =
+      document.getElementById("summaryLine");
 
 
-  function createSeries(
-    catalog,
-    seriesName,
-    games
-  ) {
-    const section =
-      document.createElement('section');
-
-    section.className = 'series';
-
-    const banner =
-      document.createElement('div');
-
-    banner.className = 'series-banner';
-
-    const heading =
-      document.createElement('h2');
-
-    heading.textContent = seriesName;
-
-    const count =
-      document.createElement('span');
-
-    count.className = 'series-count';
-    count.textContent =
-      games.length + ' เรื่อง';
-
-    banner.appendChild(heading);
-    banner.appendChild(count);
-
-    const grid =
-      document.createElement('div');
-
-    grid.className = 'game-grid';
-
-    games.forEach(function(game) {
-      grid.appendChild(
-        createGameCard(game)
-      );
-    });
-
-    section.appendChild(banner);
-    section.appendChild(grid);
-    catalog.appendChild(section);
-
-    setSeriesRatio(section);
-  }
+    let allGames = [];
 
 
-  function createGameCard(game) {
-    const card =
-      document.createElement('article');
+    function normalizeText(value) {
 
-    card.className = 'game-card';
-
-    const cover =
-      document.createElement('div');
-
-    cover.className = 'cover';
-
-    const img =
-      document.createElement('img');
-
-    img.alt =
-      String(game.gameName || '');
-
-    img.loading = 'lazy';
-
-    setCoverImage(
-      img,
-      game.gameId
-    );
-
-    cover.appendChild(img);
-
-    const info =
-      document.createElement('div');
-
-    info.className = 'game-info';
-
-    const title =
-      document.createElement('div');
-
-    title.className = 'game-title';
-    title.textContent =
-      String(game.gameName || '');
-
-    const meta =
-      document.createElement('div');
-
-    meta.className = 'game-meta';
-
-    const players =
-      document.createElement('div');
-
-    players.textContent =
-      'ผู้เล่น ' +
-      String(game.players || '') +
-      ' คน';
-
-    const time =
-      document.createElement('div');
-
-    time.textContent =
-      'เวลา ' +
-      String(game.playTime || '') +
-      ' ชั่วโมง';
-
-    meta.appendChild(players);
-    meta.appendChild(time);
-
-    const price =
-      document.createElement('div');
-
-    price.className = 'price';
-    price.textContent =
-      formatPrice(game.price);
-
-    info.appendChild(title);
-    info.appendChild(meta);
-    info.appendChild(price);
-
-    const status =
-      String(game.status || '')
+      return String(value || "")
         .trim()
         .toLowerCase();
 
-    if (status === 'coming soon') {
-      const badge =
-        document.createElement('div');
-
-      badge.className = 'coming-soon';
-      badge.textContent = 'เร็ว ๆ นี้';
-
-      info.appendChild(badge);
     }
 
-    cover.addEventListener(
-      'click',
-      function() {
-        openModal(game);
-      }
-    );
 
-    title.addEventListener(
-      'click',
-      function() {
-        openModal(game);
-      }
-    );
+    function escapeHtml(value) {
 
-    card.appendChild(cover);
-    card.appendChild(info);
+      return String(value || "")
 
-    return card;
-  }
+        .replaceAll("&", "&amp;")
 
+        .replaceAll("<", "&lt;")
 
-  /* หาไฟล์รูปจาก Game ID
-     รองรับ webp / png / jpg / jpeg */
-  function setCoverImage(
-    img,
-    gameId
-  ) {
-    const extensions = [
-      'webp',
-      'png',
-      'jpg',
-      'jpeg'
-    ];
+        .replaceAll(">", "&gt;")
 
-    let index = 0;
+        .replaceAll('"', "&quot;")
 
-    function tryNext() {
-      if (index >= extensions.length) {
-        img.removeAttribute('src');
-        img.alt = 'No image';
-        return;
-      }
+        .replaceAll("'", "&#039;");
 
-      img.src =
-        'covers/' +
-        encodeURIComponent(
-          String(gameId || '').trim()
-        ) +
-        '.' +
-        extensions[index];
-
-      index++;
     }
 
-    img.onerror = tryNext;
 
-    tryNext();
-  }
+    function formatPrice(value) {
+
+      const text =
+        String(value || "")
+          .replace(/,/g, "")
+          .trim();
 
 
-  /* ใช้รูปแรกของ Series
-     กำหนดสัดส่วนให้ทุกเกมใน Series */
-  function setSeriesRatio(section) {
-    const covers =
-      section.querySelectorAll('.cover');
+      const number =
+        Number(text);
 
-    const images =
-      section.querySelectorAll('.cover img');
 
-    covers.forEach(function(cover) {
-      cover.style.aspectRatio = '3 / 4';
-    });
-
-    if (!images.length) return;
-
-    const firstImage = images[0];
-
-    function applyRatio() {
       if (
-        !firstImage.naturalWidth ||
-        !firstImage.naturalHeight
+        !text ||
+        Number.isNaN(number)
       ) {
-        return;
+
+        return "";
+
       }
 
-      const ratio =
-        firstImage.naturalWidth +
-        ' / ' +
-        firstImage.naturalHeight;
 
-      covers.forEach(function(cover) {
-        cover.style.aspectRatio =
-          ratio;
-      });
+      return new Intl.NumberFormat(
+        "th-TH"
+      ).format(number);
+
     }
 
-    if (
-      firstImage.complete &&
-      firstImage.naturalWidth
-    ) {
-      applyRatio();
-    } else {
-      firstImage.addEventListener(
-        'load',
-        applyRatio,
-        { once: true }
+
+    function shouldShowPrice(game) {
+
+      const value =
+        normalizeText(
+          game.price_display
+        );
+
+
+      return (
+
+        value === "แสดงราคา" ||
+
+        value === "show" ||
+
+        value === "true" ||
+
+        value === "yes"
+
       );
+
     }
-  }
 
 
-  function openModal(game) {
-    document
-      .getElementById('modalTitle')
-      .textContent =
-        String(game.gameName || '');
+    function getPriceText(game) {
 
-    document
-      .getElementById('modalPlayers')
-      .textContent =
-        'ผู้เล่น ' +
-        String(game.players || '') +
-        ' คน';
+      if (
+        game.status === "เร็ว ๆ นี้"
+      ) {
 
-    document
-      .getElementById('modalTime')
-      .textContent =
-        'เวลา ' +
-        String(game.playTime || '') +
-        ' ชั่วโมง';
+        return "เปิดให้เล่นเร็ว ๆ นี้";
 
-    document
-      .getElementById('modalPrice')
-      .textContent =
+      }
+
+
+      if (
+        game.status === "กำลังเตรียมเกม"
+      ) {
+
+        return "อยู่ระหว่างเตรียมเกม";
+
+      }
+
+
+      if (
+        game.status === "ปิดปรับปรุง"
+      ) {
+
+        return "ปิดปรับปรุงชั่วคราว";
+
+      }
+
+
+      if (
+        !shouldShowPrice(game)
+      ) {
+
+        return "สอบถามราคา";
+
+      }
+
+
+      const price =
         formatPrice(game.price);
 
-    document
-      .getElementById('modalStory')
-      .textContent =
-        String(game.synopsis || '');
 
-    const cover =
-      document.getElementById(
-        'modalCover'
+      return price
+        ? `${price} บาท/คน`
+        : "สอบถามราคา";
+
+    }
+
+
+    function getPriceLabel(game) {
+
+      return game.status === "พร้อมให้เล่น"
+        ? "ราคา"
+        : "สถานะ";
+
+    }
+
+
+    /*
+      =========================================
+      เรียงลำดับเกม
+      =========================================
+
+      1. เกมพร้อมให้เล่น / Active มาก่อน
+      2. จากนั้นเรียงตาม Game ID
+      3. เกมสถานะอื่นตามหลัง
+    */
+
+    function sortGames(a, b) {
+
+      const statusA =
+        normalizeText(a.status);
+
+      const statusB =
+        normalizeText(b.status);
+
+
+      const activeA =
+        statusA === "พร้อมให้เล่น" ||
+        statusA === "active";
+
+
+      const activeB =
+        statusB === "พร้อมให้เล่น" ||
+        statusB === "active";
+
+
+      /*
+        ถ้าสถานะต่างกัน
+        เกม Active ขึ้นก่อน
+      */
+
+      if (activeA !== activeB) {
+
+        return activeA
+          ? -1
+          : 1;
+
+      }
+
+
+      /*
+        รองรับชื่อ field Game ID
+        หลายแบบ เผื่อ Apps Script
+        ส่งชื่อมาไม่เหมือนกัน
+      */
+
+      const idA =
+
+        a.gameId ??
+
+        a.game_id ??
+
+        a["Game ID"] ??
+
+        a.id ??
+
+        "";
+
+
+      const idB =
+
+        b.gameId ??
+
+        b.game_id ??
+
+        b["Game ID"] ??
+
+        b.id ??
+
+        "";
+
+
+      /*
+        เรียง ID แบบตัวเลขธรรมชาติ
+
+        เช่น
+
+        mmc01
+        mmc02
+        mmc02_5
+        mmc03
+      */
+
+      return String(idA)
+        .localeCompare(
+
+          String(idB),
+
+          undefined,
+
+          {
+            numeric: true,
+            sensitivity: "base"
+          }
+
+        );
+
+    }
+
+
+    function createGameCard(game) {
+
+      const article =
+        document.createElement(
+          "article"
+        );
+
+
+      article.className =
+        "game-card";
+
+
+      const coverHtml =
+        game.cover
+
+          ? `
+
+            <img
+
+              class="cover-image"
+
+              src="${escapeHtml(game.cover)}"
+
+              alt="หน้าปก ${escapeHtml(game.title)}"
+
+              loading="lazy"
+
+              onerror="
+                this.style.display='none';
+                this.nextElementSibling.style.display='grid';
+              "
+
+            />
+
+            <div
+              class="cover-placeholder"
+              style="display:none;"
+            >
+              ยังไม่มีรูปหน้าปก
+            </div>
+
+          `
+
+          : `
+
+            <div class="cover-placeholder">
+              ยังไม่มีรูปหน้าปก
+            </div>
+
+          `;
+
+
+      const difficultyTag =
+        game.difficulty
+
+          ? `
+
+            <span class="tag">
+
+              ความยาก:
+              ${escapeHtml(game.difficulty)}
+
+            </span>
+
+          `
+
+          : "";
+
+
+      const charactersHtml =
+        game.characters
+
+          ? `
+
+            <div class="characters">
+
+              <strong>
+                ตัวละคร:
+              </strong>
+
+              ${escapeHtml(game.characters)}
+
+            </div>
+
+          `
+
+          : "";
+
+
+      const priceClass =
+
+        game.status === "พร้อมให้เล่น"
+
+          ? "price"
+
+          : "price price-muted";
+
+
+      const statusBadge =
+
+        game.status === "เร็ว ๆ นี้"
+
+          ? `
+
+            <div class="status-badge">
+              เร็ว ๆ นี้
+            </div>
+
+          `
+
+          : "";
+
+
+      article.innerHTML = `
+
+        <div class="cover-shell">
+
+          ${coverHtml}
+
+          ${statusBadge}
+
+        </div>
+
+
+        <div class="card-body">
+
+
+          <div class="genre">
+
+            ${escapeHtml(
+              game.genre ||
+              "Murder Mystery"
+            )}
+
+          </div>
+
+
+          <h2 class="title">
+
+            ${escapeHtml(
+              game.title ||
+              "ไม่มีชื่อเรื่อง"
+            )}
+
+          </h2>
+
+
+          <div class="meta">
+
+
+            <span class="tag">
+
+              ผู้เล่น
+              ${escapeHtml(
+                game.players ||
+                "-"
+              )}
+              คน
+
+            </span>
+
+
+            <span class="tag">
+
+              ${escapeHtml(
+                game.duration ||
+                "ไม่ระบุเวลา"
+              )}
+
+            </span>
+
+
+            ${difficultyTag}
+
+
+          </div>
+
+
+          <p class="summary">
+
+            ${escapeHtml(
+              game.summary ||
+              "ยังไม่มีเรื่องย่อ"
+            )}
+
+          </p>
+
+
+          ${charactersHtml}
+
+
+          <div class="price-row">
+
+            <div>
+
+
+              <div class="price-label">
+
+                ${escapeHtml(
+                  getPriceLabel(game)
+                )}
+
+              </div>
+
+
+              <div class="${priceClass}">
+
+                ${escapeHtml(
+                  getPriceText(game)
+                )}
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      `;
+
+
+      return article;
+
+    }
+
+
+    function renderGames() {
+
+      const keyword =
+        normalizeText(
+          searchInput.value
+        );
+
+
+      const selectedStatus =
+        statusFilter.value;
+
+
+      /*
+        Filter ก่อน
+      */
+
+      const filteredGames =
+        allGames.filter(
+          (game) => {
+
+
+            const searchableText =
+              normalizeText([
+
+                game.title,
+
+                game.summary,
+
+                game.genre,
+
+                game.players,
+
+                game.duration,
+
+                game.difficulty,
+
+                game.status,
+
+                game.price_display,
+
+                game.gameId,
+
+                game.game_id,
+
+                game["Game ID"]
+
+              ].join(" "));
+
+
+            const matchesKeyword =
+
+              !keyword ||
+
+              searchableText.includes(
+                keyword
+              );
+
+
+            const matchesStatus =
+
+              !selectedStatus ||
+
+              game.status ===
+                selectedStatus;
+
+
+            return (
+
+              matchesKeyword &&
+
+              matchesStatus
+
+            );
+
+          }
+        );
+
+
+      /*
+        =================================
+        เรียงเกมตรงนี้
+        =================================
+
+        Active ก่อน
+        แล้วตาม Game ID
+      */
+
+      filteredGames.sort(
+        sortGames
       );
 
-    cover.style.display = 'block';
-    cover.alt =
-      String(game.gameName || '');
 
-    setCoverImage(
-      cover,
-      game.gameId
-    );
-
-    document
-      .getElementById('modal')
-      .classList.add('open');
-
-    document.body.style.overflow =
-      'hidden';
-  }
+      catalog.innerHTML =
+        "";
 
 
-  function closeModal() {
-    document
-      .getElementById('modal')
-      .classList.remove('open');
-
-    document.body.style.overflow = '';
-  }
+      if (
+        filteredGames.length === 0
+      ) {
 
 
-  document
-    .getElementById('closeButton')
-    .addEventListener(
-      'click',
-      closeModal
-    );
+        catalog.innerHTML = `
+
+          <div class="state">
+
+            <strong>
+
+              ไม่พบเกมที่ตรงกับเงื่อนไข
+
+            </strong>
+
+            ลองเปลี่ยนคำค้นหา
+            หรือตัวกรองสถานะ
+
+          </div>
+
+        `;
 
 
-  document
-    .getElementById('modal')
-    .addEventListener(
-      'click',
-      function(event) {
-        if (event.target.id === 'modal') {
-          closeModal();
+      } else {
+
+
+        filteredGames.forEach(
+          (game) => {
+
+            catalog.appendChild(
+              createGameCard(game)
+            );
+
+          }
+        );
+
+
+      }
+
+
+      summaryLine.textContent =
+
+        filteredGames.length ===
+        allGames.length
+
+          ? `ทั้งหมด ${allGames.length} เกม`
+
+          : `พบ ${filteredGames.length} จากทั้งหมด ${allGames.length} เกม`;
+
+    }
+
+
+    async function loadGames() {
+
+
+      if (
+
+        !API_URL ||
+
+        API_URL.includes(
+          "วาง_WEB_APP_URL"
+        ) ||
+
+        !API_URL.endsWith(
+          "/exec"
+        )
+
+      ) {
+
+
+        catalog.innerHTML = `
+
+          <div class="state">
+
+            <strong>
+
+              ยังไม่ได้ใส่ Web App URL
+
+            </strong>
+
+            กรุณาใส่ Web App URL
+            ที่ลงท้ายด้วย /exec
+
+          </div>
+
+        `;
+
+
+        summaryLine.textContent =
+          "ยังไม่ได้เชื่อมต่อ Google Sheets";
+
+
+        return;
+
+      }
+
+
+      try {
+
+
+        const response =
+          await fetch(
+
+            API_URL,
+
+            {
+              cache: "no-store"
+            }
+
+          );
+
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            `HTTP ${response.status}`
+          );
+
         }
+
+
+        const data =
+          await response.json();
+
+
+        if (
+
+          !data.success ||
+
+          !Array.isArray(
+            data.games
+          )
+
+        ) {
+
+          throw new Error(
+
+            data.message ||
+
+            "รูปแบบข้อมูลไม่ถูกต้อง"
+
+          );
+
+        }
+
+
+        /*
+          =================================
+          เอา Hidden ออก
+          =================================
+
+          รองรับทั้ง
+
+          Hidden
+          ซ่อน
+        */
+
+        allGames =
+          data.games.filter(
+            (game) => {
+
+
+              const status =
+                normalizeText(
+                  game.status
+                );
+
+
+              return (
+
+                status !== "hidden" &&
+
+                status !== "ซ่อน"
+
+              );
+
+            }
+          );
+
+
+        /*
+          เรียงไว้ตั้งแต่โหลดด้วย
+        */
+
+        allGames.sort(
+          sortGames
+        );
+
+
+        renderGames();
+
+
+      } catch (error) {
+
+
+        console.error(
+          error
+        );
+
+
+        catalog.innerHTML = `
+
+          <div class="state">
+
+            <strong>
+
+              โหลดข้อมูลไม่สำเร็จ
+
+            </strong>
+
+            ตรวจสอบ Web App URL
+            สิทธิ์การเข้าถึง
+            และการเผยแพร่ Apps Script
+
+          </div>
+
+        `;
+
+
+        summaryLine.textContent =
+          "ไม่สามารถเชื่อมต่อข้อมูลได้";
+
       }
+
+    }
+
+
+    searchInput.addEventListener(
+      "input",
+      renderGames
     );
 
 
-  document.addEventListener(
-    'keydown',
-    function(event) {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
-    }
-  );
-
-
-  function formatPrice(value) {
-    const cleaned =
-      String(value || '')
-        .replace(/,/g, '')
-        .trim();
-
-    const number =
-      Number(cleaned);
-
-    if (
-      !cleaned ||
-      isNaN(number)
-    ) {
-      return '';
-    }
-
-    return (
-      '฿' +
-      number.toLocaleString('th-TH') +
-      ' / รอบ'
+    statusFilter.addEventListener(
+      "change",
+      renderGames
     );
-  }
 
 
-  function showError(error) {
-    const message =
-      error && error.message
-        ? error.message
-        : String(error);
+    loadGames();
 
-    document
-      .getElementById('catalog')
-      .innerHTML =
-        '<div class="message error">' +
-        'โหลดข้อมูลไม่สำเร็จ: ' +
-        escapeHtml(message) +
-        '</div>';
-  }
-
-
-  function escapeHtml(value) {
-    return String(value || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
-</script>
+  </script>
 
 </body>
 </html>
