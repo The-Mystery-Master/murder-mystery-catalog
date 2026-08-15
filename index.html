@@ -1,12 +1,95 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>Murder Mystery</title>
 </head>
+
 <body>
+
   <h1>Murder Mystery</h1>
-  <p>GitHub Pages ใช้งานได้แล้ว</p>
+
+  <div id="status">
+    กำลังโหลดข้อมูล...
+  </div>
+
+  <pre id="result"></pre>
+
+
+  <script>
+
+    const API_URL =
+      'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnSRWa6GtUXYb9wG7dnc5OJWKRrajxhVulHBALJTX89ejj_8-waq1vlAuUtxGRTbfmC8dmlOd17PPTRNw0KNn7zOlL4TOwr1o8xUE1h0BkwQ6P-pEnEjpWld5hcB9aTNKWLByeGco1t_x4XNooqfYUhiowr44urG52qNa2r6-k45SccnU21TDSaK88K0v8PWgGFmj-IBr_lrA70Y6SKwkGyskCil6ZSwC0E6TumapiuJDeWmx2Pl07A45UKR08UFLLK5cpwnp_-WWJDJC2FgVtK1bj4a1Q&lib=MYpqcSAzvQ4N4hWvOcjVJzf1z8h6xFa74';
+
+
+    async function loadGames() {
+
+      const status =
+        document.getElementById('status');
+
+      const result =
+        document.getElementById('result');
+
+
+      try {
+
+        const response =
+          await fetch(API_URL);
+
+        if (!response.ok) {
+          throw new Error(
+            'HTTP ' + response.status
+          );
+        }
+
+        const data =
+          await response.json();
+
+
+        if (!data.success) {
+          throw new Error(
+            data.error || 'API Error'
+          );
+        }
+
+
+        status.textContent =
+          'โหลดสำเร็จ จำนวนเกม = ' +
+          data.games.length;
+
+        result.textContent =
+          JSON.stringify(
+            data.games,
+            null,
+            2
+          );
+
+      }
+
+      catch (error) {
+
+        status.textContent =
+          'โหลดไม่สำเร็จ';
+
+        result.textContent =
+          error.message;
+
+      }
+
+    }
+
+
+    loadGames();
+
+  </script>
+
 </body>
+
 </html>
