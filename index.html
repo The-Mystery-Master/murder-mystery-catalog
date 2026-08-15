@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Murder Mystery</title>
 
+
   <style>
+
     :root {
       --bg: #121212;
       --surface: #1c1c1c;
       --surface-2: #242424;
       --surface-3: #303030;
+
       --text: #f4f1eb;
       --muted: #aaa49c;
+
       --accent: #d65a6f;
+
       --line: #373737;
       --banner: #292929;
       --white: #ffffff;
     }
 
+
     * {
       box-sizing: border-box;
     }
+
 
     html {
       color-scheme: dark;
     }
 
+
     body {
       margin: 0;
+
       background: var(--bg);
       color: var(--text);
 
@@ -42,98 +56,332 @@
         sans-serif;
     }
 
+
+    /* ========================================
+       HEADER
+       ======================================== */
+
     header {
-      padding: 24px 16px 10px;
+      padding: 28px 16px 16px;
+
       text-align: center;
     }
 
+
     header h1 {
       margin: 0;
+
       color: var(--text);
-      font-size: 30px;
-      font-weight: 800;
+
+      font-size: 40px;
+      font-weight: 850;
+
+      line-height: 1.1;
+
+      letter-spacing: -0.02em;
     }
+
+
+    /* ========================================
+       MAIN
+       ======================================== */
 
     main {
       width: 100%;
-      padding: 0 16px 60px;
+
+      padding:
+        0 16px 60px;
     }
+
+
+    /* ========================================
+       FILTER BOX
+       ======================================== */
+
+    .filter-panel {
+      width: 100%;
+
+      margin:
+        12px auto 30px;
+
+      padding: 14px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 14px;
+
+      background:
+        var(--surface);
+
+      box-shadow:
+        0 8px 24px rgba(0,0,0,.18);
+    }
+
+
+    /* SEARCH */
+
+    .search-box {
+      position: relative;
+
+      width: 100%;
+
+      margin-bottom: 10px;
+    }
+
+
+    .search-box input {
+      width: 100%;
+
+      height: 46px;
+
+      padding:
+        0 14px;
+
+      border:
+        1px solid #444;
+
+      border-radius: 10px;
+
+      outline: none;
+
+      background:
+        var(--surface-2);
+
+      color:
+        var(--text);
+
+      font-family: inherit;
+
+      font-size: 16px;
+    }
+
+
+    .search-box input::placeholder {
+      color: #888;
+    }
+
+
+    .search-box input:focus {
+      border-color:
+        var(--accent);
+    }
+
+
+    /* FILTER SELECTS */
+
+    .filter-row {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+      gap: 8px;
+    }
+
+
+    .filter-select {
+      width: 100%;
+
+      height: 42px;
+
+      padding:
+        0 10px;
+
+      border:
+        1px solid #444;
+
+      border-radius: 9px;
+
+      outline: none;
+
+      background:
+        var(--surface-2);
+
+      color:
+        var(--text);
+
+      font-family: inherit;
+
+      font-size: 14px;
+    }
+
+
+    .filter-select:focus {
+      border-color:
+        var(--accent);
+    }
+
+
+    .filter-footer {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-top: 11px;
+    }
+
+
+    .result-count {
+      color:
+        var(--muted);
+
+      font-size: 13px;
+    }
+
+
+    .reset-button {
+      padding:
+        7px 12px;
+
+      border:
+        1px solid #555;
+
+      border-radius: 999px;
+
+      background:
+        transparent;
+
+      color:
+        #ddd;
+
+      font-family: inherit;
+
+      font-size: 13px;
+
+      cursor: pointer;
+    }
+
+
+    .reset-button:hover {
+      border-color:
+        var(--accent);
+
+      color:
+        #fff;
+    }
+
+
+    /* ========================================
+       SERIES
+       ======================================== */
 
     .series {
       margin-top: 36px;
     }
 
+
     .series:first-child {
-      margin-top: 24px;
+      margin-top: 0;
     }
 
-.series-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
 
-  width: 100%;
-  margin-bottom: 16px;
-  padding: 14px 16px;
+    .series-banner {
+      display: flex;
 
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 10px;
+      align-items: center;
+      justify-content: space-between;
 
-  background:
-    linear-gradient(
-      110deg,
-      #7b2434 0%,
-      #5b2747 48%,
-      #292542 100%
-    );
+      gap: 12px;
 
-  color: var(--white);
+      width: 100%;
 
-  box-shadow:
-    0 6px 18px rgba(123, 36, 52, .22);
-}
+      margin-bottom: 16px;
+
+      padding:
+        14px 16px;
+
+      border:
+        1px solid rgba(255,255,255,.10);
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          110deg,
+          #7b2434 0%,
+          #5b2747 48%,
+          #292542 100%
+        );
+
+      color:
+        var(--white);
+
+      box-shadow:
+        0 6px 18px
+        rgba(123,36,52,.22);
+    }
+
 
     .series-banner h2 {
       margin: 0;
-      color: var(--white);
+
+      color:
+        var(--white);
+
       font-size: 23px;
       font-weight: 800;
+
       line-height: 1.2;
     }
 
+
     .series-count {
       flex-shrink: 0;
-      color: var(--muted);
+
+      color:
+        rgba(255,255,255,.72);
+
       font-size: 13px;
       font-weight: 600;
     }
 
-    /* MOBILE = 2 COLUMNS */
+
+    /* ========================================
+       MOBILE GRID = 2
+       ======================================== */
+
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
       column-gap: 14px;
       row-gap: 30px;
     }
+
 
     .game-card {
       min-width: 0;
     }
 
+
+    /* ========================================
+       COVER
+       ======================================== */
+
     .cover {
       width: 100%;
+
       aspect-ratio: 3 / 4;
 
       overflow: hidden;
 
-      border: 1px solid #333;
+      border:
+        1px solid #333;
+
       border-radius: 10px;
 
-      background: var(--surface-2);
+      background:
+        var(--surface-2);
 
       box-shadow:
-        0 5px 18px rgba(0,0,0,.32);
+        0 5px 18px
+        rgba(0,0,0,.32);
 
       cursor: pointer;
 
@@ -142,75 +390,128 @@
         box-shadow .18s ease;
     }
 
+
     .cover:active {
-      transform: scale(.985);
+      transform:
+        scale(.985);
     }
+
 
     .cover img {
       display: block;
+
       width: 100%;
       height: 100%;
+
       object-fit: contain;
     }
+
+
+    /* ========================================
+       GAME INFO
+       ======================================== */
 
     .game-info {
       padding-top: 9px;
     }
 
+
     .game-title {
-      color: var(--text);
+      color:
+        var(--text);
+
       font-size: 18px;
       font-weight: 800;
+
       line-height: 1.3;
+
       cursor: pointer;
     }
 
+
     .game-meta {
       margin-top: 7px;
-      color: var(--muted);
+
+      color:
+        var(--muted);
+
       font-size: 15px;
+
       line-height: 1.45;
     }
 
+
     .price {
       margin-top: 6px;
-      color: var(--accent);
+
+      color:
+        var(--accent);
+
       font-size: 17px;
       font-weight: 800;
     }
+
+
+    /* ========================================
+       COMING SOON
+       ======================================== */
 
     .coming-soon {
       display: inline-block;
 
       margin-top: 8px;
-      padding: 6px 11px;
 
-      border: 1px solid #555;
+      padding:
+        6px 11px;
+
+      border:
+        1px solid #555;
+
       border-radius: 999px;
 
-      background: var(--surface-3);
-      color: #ddd;
+      background:
+        var(--surface-3);
+
+      color:
+        #ddd;
 
       font-size: 13px;
       font-weight: 700;
     }
 
+
+    /* ========================================
+       MESSAGE
+       ======================================== */
+
     .message {
-      padding: 80px 20px;
+      padding:
+        70px 20px;
+
       text-align: center;
-      color: var(--muted);
+
+      color:
+        var(--muted);
+
       font-size: 16px;
     }
 
+
     .error {
-      color: #ff7c8d;
+      color:
+        #ff7c8d;
     }
 
-    /* MODAL MOBILE */
+
+    /* ========================================
+       MODAL MOBILE
+       ======================================== */
+
     .modal {
       display: none;
 
       position: fixed;
+
       inset: 0;
 
       z-index: 9999;
@@ -224,38 +525,48 @@
         rgba(0,0,0,.82);
     }
 
+
     .modal.open {
       display: flex;
     }
+
 
     .modal-box {
       position: relative;
 
       width: 100%;
+
       max-height: 92vh;
 
       overflow-y: auto;
 
       padding: 20px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid var(--line);
 
       border-radius:
         22px 22px 12px 12px;
 
-      background: var(--surface);
+      background:
+        var(--surface);
 
       box-shadow:
-        0 20px 70px rgba(0,0,0,.55);
+        0 20px 70px
+        rgba(0,0,0,.55);
     }
+
 
     .modal-close {
       position: absolute;
+
       top: 12px;
       right: 12px;
+
       z-index: 2;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -264,256 +575,507 @@
 
       padding: 0;
 
-      border: 1px solid #555;
+      border:
+        1px solid #555;
+
       border-radius: 50%;
 
       background: #111;
+
       color: #fff;
 
       font-size: 24px;
+
       cursor: pointer;
     }
 
+
     .modal-content {
       display: grid;
-      grid-template-columns: 1fr;
+
+      grid-template-columns:
+        1fr;
+
       gap: 18px;
     }
 
+
     .modal-cover {
       display: block;
-      width: min(70%, 300px);
+
+      width:
+        min(70%,300px);
+
       max-height: 46vh;
-      margin: 0 auto;
+
+      margin:
+        0 auto;
+
       object-fit: contain;
+
       border-radius: 10px;
     }
 
+
     .modal-title {
-      margin: 0 48px 14px 0;
-      color: var(--text);
+      margin:
+        0 48px 14px 0;
+
+      color:
+        var(--text);
+
       font-size: 26px;
       font-weight: 800;
+
       line-height: 1.3;
     }
 
+
     .chips {
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 8px;
+
       margin-bottom: 12px;
     }
 
+
     .chip {
-      padding: 8px 12px;
-      border: 1px solid #3d3d3d;
+      padding:
+        8px 12px;
+
+      border:
+        1px solid #3d3d3d;
+
       border-radius: 999px;
-      background: var(--surface-2);
+
+      background:
+        var(--surface-2);
+
       color: #ddd;
+
       font-size: 15px;
     }
 
+
     .modal-price {
-      margin: 4px 0 20px;
-      color: var(--accent);
+      margin:
+        4px 0 20px;
+
+      color:
+        var(--accent);
+
       font-size: 19px;
       font-weight: 800;
     }
 
+
     .story-title {
       margin-bottom: 6px;
-      color: var(--text);
+
+      color:
+        var(--text);
+
       font-size: 17px;
       font-weight: 800;
     }
 
+
     .story {
       margin: 0;
-      color: #d0cbc5;
+
+      color:
+        #d0cbc5;
+
       font-size: 16px;
+
       line-height: 1.7;
-      white-space: pre-line;
+
+      white-space:
+        pre-line;
     }
 
-    /* DESKTOP */
-    @media (min-width: 900px) {
+
+    /* ========================================
+       DESKTOP
+       ======================================== */
+
+    @media (min-width:900px) {
 
       header {
-        padding: 34px 20px 12px;
+        padding:
+          38px 20px 18px;
       }
+
 
       header h1 {
-        font-size: 42px;
+        font-size: 54px;
       }
 
+
       main {
-        width: min(960px, calc(100% - 48px));
-        margin: 0 auto;
-        padding: 0 0 80px;
+        width:
+          min(960px,calc(100% - 48px));
+
+        margin:
+          0 auto;
+
+        padding:
+          0 0 80px;
       }
+
+
+      /* FILTER */
+
+      .filter-panel {
+        padding: 16px;
+
+        margin-bottom: 38px;
+      }
+
+
+      .search-box input {
+        height: 48px;
+
+        font-size: 16px;
+      }
+
+
+      .filter-row {
+        grid-template-columns:
+          repeat(4,minmax(0,1fr));
+
+        gap: 10px;
+      }
+
+
+      .filter-select {
+        height: 44px;
+
+        font-size: 14px;
+      }
+
+
+      /* SERIES */
 
       .series {
         margin-top: 48px;
       }
 
+
       .series:first-child {
-        margin-top: 32px;
+        margin-top: 0;
       }
+
 
       .series-banner {
         margin-bottom: 22px;
-        padding: 17px 20px;
+
+        padding:
+          17px 20px;
+
         border-radius: 12px;
       }
+
 
       .series-banner h2 {
         font-size: 25px;
       }
 
+
       .series-count {
         font-size: 14px;
       }
 
+
+      /* 4 COLUMNS */
+
       .game-grid {
         grid-template-columns:
-          repeat(4, minmax(0, 1fr));
+          repeat(4,minmax(0,1fr));
 
         column-gap: 26px;
+
         row-gap: 38px;
       }
+
 
       .cover {
         border-radius: 12px;
       }
 
+
       .cover:hover {
-        transform: translateY(-4px);
+        transform:
+          translateY(-4px);
 
         box-shadow:
-          0 12px 30px rgba(0,0,0,.48);
+          0 12px 30px
+          rgba(0,0,0,.48);
       }
+
 
       .game-info {
         padding-top: 12px;
       }
 
+
       .game-title {
         font-size: 18px;
+
         line-height: 1.35;
       }
 
+
       .game-title:hover {
-        color: var(--accent);
+        color:
+          var(--accent);
       }
+
 
       .game-meta {
         margin-top: 8px;
+
         font-size: 15px;
+
         line-height: 1.5;
       }
 
+
       .price {
         margin-top: 7px;
+
         font-size: 18px;
       }
 
+
       .coming-soon {
         margin-top: 10px;
-        padding: 6px 12px;
+
+        padding:
+          6px 12px;
+
         font-size: 13px;
       }
 
+
+      /* MODAL */
+
       .modal {
         align-items: center;
+
         padding: 20px;
       }
 
+
       .modal-box {
-        width: min(900px, 100%);
+        width:
+          min(900px,100%);
+
         max-height: 90vh;
+
         padding: 30px;
+
         border-radius: 20px;
       }
 
-      .modal-close {
-        top: 14px;
-        right: 14px;
-        width: 42px;
-        height: 42px;
-        font-size: 25px;
-      }
 
       .modal-content {
         grid-template-columns:
-          minmax(0, 320px) 1fr;
+          minmax(0,320px) 1fr;
 
         gap: 32px;
       }
 
+
       .modal-cover {
         width: 100%;
+
         max-height: 72vh;
+
         margin: 0;
       }
 
+
       .modal-title {
-        margin-right: 50px;
         font-size: 32px;
       }
 
-      .chips {
-        gap: 9px;
-        margin-bottom: 15px;
-      }
 
       .chip {
-        padding: 8px 13px;
         font-size: 15px;
       }
+
 
       .modal-price {
         font-size: 21px;
       }
 
+
       .story-title {
         font-size: 18px;
       }
 
+
       .story {
         font-size: 16px;
+
         line-height: 1.75;
       }
+
     }
 
   </style>
 </head>
 
+
 <body>
+
 
 <header>
   <h1>Murder Mystery</h1>
 </header>
 
-<main id="catalog">
-  <div class="message">
-    กำลังโหลดรายการเกม...
+
+<main>
+
+  <!-- =====================================
+       FILTERS
+       ===================================== -->
+
+  <div class="filter-panel">
+
+    <div class="search-box">
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="ค้นหาชื่อเกม..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div class="filter-row">
+
+      <select
+        id="statusFilter"
+        class="filter-select"
+      >
+        <option value="">
+          ทุกสถานะ
+        </option>
+
+        <option value="active">
+          พร้อมเล่น
+        </option>
+
+        <option value="coming soon">
+          เร็ว ๆ นี้
+        </option>
+      </select>
+
+
+      <select
+        id="playerFilter"
+        class="filter-select"
+      >
+        <option value="">
+          ผู้เล่นทุกจำนวน
+        </option>
+      </select>
+
+
+      <select
+        id="timeFilter"
+        class="filter-select"
+      >
+        <option value="">
+          ทุกเวลา
+        </option>
+
+        <option value="3">
+          ไม่เกิน 3 ชั่วโมง
+        </option>
+
+        <option value="4">
+          4 ชั่วโมง
+        </option>
+
+        <option value="5">
+          5 ชั่วโมงขึ้นไป
+        </option>
+      </select>
+
+
+      <select
+        id="seriesFilter"
+        class="filter-select"
+      >
+        <option value="">
+          ทุกหมวด
+        </option>
+      </select>
+
+    </div>
+
+
+    <div class="filter-footer">
+
+      <div
+        id="resultCount"
+        class="result-count"
+      ></div>
+
+
+      <button
+        id="resetFilters"
+        class="reset-button"
+        type="button"
+      >
+        ล้างตัวกรอง
+      </button>
+
+    </div>
+
   </div>
+
+
+  <!-- CATALOG -->
+
+  <div id="catalog">
+
+    <div class="message">
+      กำลังโหลดรายการเกม...
+    </div>
+
+  </div>
+
 </main>
+
+
+<!-- =====================================
+     MODAL
+     ===================================== -->
 
 <div
   class="modal"
   id="modal"
 >
+
   <div class="modal-box">
 
     <button
       class="modal-close"
       id="closeButton"
       type="button"
-      aria-label="ปิด"
     >
       ×
     </button>
+
 
     <div class="modal-content">
 
@@ -523,6 +1085,7 @@
         alt=""
       >
 
+
       <div>
 
         <h3
@@ -530,19 +1093,33 @@
           class="modal-title"
         ></h3>
 
+
         <div class="chips">
-          <span id="modalPlayers" class="chip"></span>
-          <span id="modalTime" class="chip"></span>
+
+          <span
+            id="modalPlayers"
+            class="chip"
+          ></span>
+
+
+          <span
+            id="modalTime"
+            class="chip"
+          ></span>
+
         </div>
+
 
         <div
           id="modalPrice"
           class="modal-price"
         ></div>
 
+
         <div class="story-title">
           เรื่องย่อ
         </div>
+
 
         <p
           id="modalStory"
@@ -554,7 +1131,9 @@
     </div>
 
   </div>
+
 </div>
+
 
 <script>
 
@@ -562,8 +1141,23 @@
     'https://script.google.com/macros/s/AKfycbw661bYeWAZN6KsjPgU_w53E_2AqtFOwZQC2YDIYsK9gUmeotr2Le3Y9HaI9qsel7id/exec';
 
 
+  let allGames = [];
+
+
+  const seriesOrder = [
+    'mystery collection',
+    'adventure',
+    'mini',
+    'party'
+  ];
+
+
   loadGames();
 
+
+  /* =====================================
+     LOAD
+     ===================================== */
 
   async function loadGames() {
 
@@ -572,228 +1166,915 @@
       const response =
         await fetch(API_URL);
 
+
       if (!response.ok) {
+
         throw new Error(
-          'HTTP ' + response.status
+          'HTTP ' +
+          response.status
         );
+
       }
+
 
       const data =
         await response.json();
 
+
       if (!data.success) {
+
         throw new Error(
-          data.error || 'API Error'
+          data.error ||
+          'API Error'
         );
+
       }
 
-      renderCatalog(
-        data.games
+
+      allGames =
+        Array.isArray(data.games)
+          ? data.games
+          : [];
+
+
+      setupFilters(
+        allGames
       );
+
+
+      applyFilters();
 
     }
 
     catch (error) {
+
       showError(error);
+
     }
 
   }
 
 
-  function getStatusRank(status) {
+  /* =====================================
+     FILTER OPTIONS
+     ===================================== */
 
-    const value =
-      String(status || '')
+  function setupFilters(games) {
+
+    setupPlayerOptions(games);
+
+    setupSeriesOptions(games);
+
+  }
+
+
+  function setupPlayerOptions(games) {
+
+    const numbers =
+      new Set();
+
+
+    games.forEach(
+      function(game) {
+
+        const range =
+          parsePlayerRange(
+            game.players
+          );
+
+
+        if (!range) {
+          return;
+        }
+
+
+        for (
+          let i = range.min;
+          i <= range.max;
+          i++
+        ) {
+
+          numbers.add(i);
+
+        }
+
+      }
+    );
+
+
+    const select =
+      document.getElementById(
+        'playerFilter'
+      );
+
+
+    [...numbers]
+      .sort(
+        function(a,b) {
+          return a - b;
+        }
+      )
+      .forEach(
+        function(number) {
+
+          const option =
+            document.createElement(
+              'option'
+            );
+
+
+          option.value =
+            number;
+
+
+          option.textContent =
+            number +
+            ' คน';
+
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
+
+  }
+
+
+  function setupSeriesOptions(games) {
+
+    const names =
+      new Set();
+
+
+    games.forEach(
+      function(game) {
+
+        const name =
+          String(
+            game.series || ''
+          ).trim();
+
+
+        if (name) {
+          names.add(name);
+        }
+
+      }
+    );
+
+
+    const select =
+      document.getElementById(
+        'seriesFilter'
+      );
+
+
+    const ordered =
+      [...names]
+        .sort(
+          compareSeries
+        );
+
+
+    ordered.forEach(
+      function(name) {
+
+        const option =
+          document.createElement(
+            'option'
+          );
+
+
+        option.value =
+          name;
+
+
+        option.textContent =
+          name;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================
+     FILTER EVENTS
+     ===================================== */
+
+  document
+    .getElementById(
+      'searchInput'
+    )
+    .addEventListener(
+      'input',
+      applyFilters
+    );
+
+
+  document
+    .getElementById(
+      'statusFilter'
+    )
+    .addEventListener(
+      'change',
+      applyFilters
+    );
+
+
+  document
+    .getElementById(
+      'playerFilter'
+    )
+    .addEventListener(
+      'change',
+      applyFilters
+    );
+
+
+  document
+    .getElementById(
+      'timeFilter'
+    )
+    .addEventListener(
+      'change',
+      applyFilters
+    );
+
+
+  document
+    .getElementById(
+      'seriesFilter'
+    )
+    .addEventListener(
+      'change',
+      applyFilters
+    );
+
+
+  document
+    .getElementById(
+      'resetFilters'
+    )
+    .addEventListener(
+      'click',
+      function() {
+
+        document
+          .getElementById(
+            'searchInput'
+          )
+          .value = '';
+
+
+        document
+          .getElementById(
+            'statusFilter'
+          )
+          .value = '';
+
+
+        document
+          .getElementById(
+            'playerFilter'
+          )
+          .value = '';
+
+
+        document
+          .getElementById(
+            'timeFilter'
+          )
+          .value = '';
+
+
+        document
+          .getElementById(
+            'seriesFilter'
+          )
+          .value = '';
+
+
+        applyFilters();
+
+      }
+    );
+
+
+  /* =====================================
+     APPLY FILTERS
+     ===================================== */
+
+  function applyFilters() {
+
+    const search =
+      document
+        .getElementById(
+          'searchInput'
+        )
+        .value
         .trim()
         .toLowerCase();
 
-    if (value === 'active') {
-      return 0;
+
+    const status =
+      document
+        .getElementById(
+          'statusFilter'
+        )
+        .value;
+
+
+    const player =
+      document
+        .getElementById(
+          'playerFilter'
+        )
+        .value;
+
+
+    const time =
+      document
+        .getElementById(
+          'timeFilter'
+        )
+        .value;
+
+
+    const series =
+      document
+        .getElementById(
+          'seriesFilter'
+        )
+        .value;
+
+
+    const filtered =
+      allGames.filter(
+        function(game) {
+
+          /* SEARCH */
+
+          if (search) {
+
+            const name =
+              String(
+                game.gameName || ''
+              )
+              .toLowerCase();
+
+
+            if (
+              !name.includes(
+                search
+              )
+            ) {
+
+              return false;
+
+            }
+
+          }
+
+
+          /* STATUS */
+
+          if (status) {
+
+            if (
+              normalizeStatus(
+                game.status
+              ) !==
+              status
+            ) {
+
+              return false;
+
+            }
+
+          }
+
+
+          /* PLAYERS */
+
+          if (player) {
+
+            if (
+              !gameSupportsPlayer(
+                game.players,
+                Number(player)
+              )
+            ) {
+
+              return false;
+
+            }
+
+          }
+
+
+          /* TIME */
+
+          if (time) {
+
+            if (
+              !matchesTimeFilter(
+                game.playTime,
+                time
+              )
+            ) {
+
+              return false;
+
+            }
+
+          }
+
+
+          /* SERIES */
+
+          if (series) {
+
+            if (
+              String(
+                game.series || ''
+              ).trim() !==
+              series
+            ) {
+
+              return false;
+
+            }
+
+          }
+
+
+          return true;
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        'resultCount'
+      )
+      .textContent =
+        'พบ ' +
+        filtered.length +
+        ' เกม';
+
+
+    renderCatalog(
+      filtered
+    );
+
+  }
+
+
+  /* =====================================
+     PLAYER FILTER
+     ===================================== */
+
+  function parsePlayerRange(value) {
+
+    const text =
+      String(
+        value || ''
+      )
+      .trim()
+      .replace(
+        /–|—/g,
+        '-'
+      );
+
+
+    if (!text) {
+      return null;
     }
 
-    if (value === 'coming soon') {
-      return 1;
+
+    const numbers =
+      text.match(
+        /\d+/g
+      );
+
+
+    if (
+      !numbers ||
+      numbers.length === 0
+    ) {
+
+      return null;
+
     }
+
+
+    const min =
+      Number(
+        numbers[0]
+      );
+
+
+    const max =
+      numbers.length >= 2
+        ? Number(numbers[1])
+        : min;
+
+
+    return {
+      min:
+        Math.min(min,max),
+
+      max:
+        Math.max(min,max)
+    };
+
+  }
+
+
+  function gameSupportsPlayer(
+    value,
+    player
+  ) {
+
+    const range =
+      parsePlayerRange(
+        value
+      );
+
+
+    if (!range) {
+      return false;
+    }
+
+
+    return (
+      player >= range.min &&
+      player <= range.max
+    );
+
+  }
+
+
+  /* =====================================
+     TIME FILTER
+     ===================================== */
+
+  function parseTime(value) {
+
+    const match =
+      String(
+        value || ''
+      )
+      .replace(
+        ',',
+        '.'
+      )
+      .match(
+        /\d+(\.\d+)?/
+      );
+
+
+    if (!match) {
+      return null;
+    }
+
+
+    return Number(
+      match[0]
+    );
+
+  }
+
+
+  function matchesTimeFilter(
+    value,
+    filter
+  ) {
+
+    const hours =
+      parseTime(value);
+
+
+    if (
+      hours === null
+    ) {
+
+      return false;
+
+    }
+
+
+    if (
+      filter === '3'
+    ) {
+
+      return hours <= 3;
+
+    }
+
+
+    if (
+      filter === '4'
+    ) {
+
+      return (
+        hours >= 3.5 &&
+        hours < 5
+      );
+
+    }
+
+
+    if (
+      filter === '5'
+    ) {
+
+      return hours >= 5;
+
+    }
+
+
+    return true;
+
+  }
+
+
+  /* =====================================
+     SORTING
+     ===================================== */
+
+  function normalizeStatus(
+    status
+  ) {
+
+    return String(
+      status || ''
+    )
+    .trim()
+    .toLowerCase();
+
+  }
+
+
+  function getStatusRank(
+    status
+  ) {
+
+    const value =
+      normalizeStatus(
+        status
+      );
+
+
+    if (
+      value ===
+      'active'
+    ) {
+
+      return 0;
+
+    }
+
+
+    if (
+      value ===
+      'coming soon'
+    ) {
+
+      return 1;
+
+    }
+
 
     return 2;
+
   }
 
 
   function compareGameId(
-    idA,
-    idB
+    a,
+    b
   ) {
 
-    return String(idA || '')
-      .localeCompare(
-        String(idB || ''),
-        undefined,
-        {
-          numeric: true,
-          sensitivity: 'base'
-        }
-      );
+    return String(
+      a || ''
+    )
+    .localeCompare(
+      String(
+        b || ''
+      ),
+      undefined,
+      {
+        numeric: true,
+        sensitivity: 'base'
+      }
+    );
+
   }
 
 
-  function sortGames(games) {
+  function sortGames(
+    games
+  ) {
 
     return [...games]
       .sort(
-        function(a, b) {
+        function(a,b) {
 
-          const statusDifference =
-            getStatusRank(a.status) -
-            getStatusRank(b.status);
+          const statusDiff =
+            getStatusRank(
+              a.status
+            ) -
+            getStatusRank(
+              b.status
+            );
+
 
           if (
-            statusDifference !== 0
+            statusDiff !== 0
           ) {
-            return statusDifference;
+
+            return statusDiff;
+
           }
+
 
           return compareGameId(
             a.gameId,
             b.gameId
           );
+
         }
       );
+
   }
 
 
-  function normalizeSeriesName(name) {
-    return String(name || '')
-      .trim()
-      .toLowerCase();
+  function normalizeSeries(
+    value
+  ) {
+
+    return String(
+      value || ''
+    )
+    .trim()
+    .toLowerCase();
+
   }
 
 
-  function renderCatalog(games) {
+  function compareSeries(
+    a,
+    b
+  ) {
+
+    const aName =
+      normalizeSeries(a);
+
+
+    const bName =
+      normalizeSeries(b);
+
+
+    const aIndex =
+      seriesOrder.indexOf(
+        aName
+      );
+
+
+    const bIndex =
+      seriesOrder.indexOf(
+        bName
+      );
+
+
+    const aa =
+      aIndex === -1
+        ? 999
+        : aIndex;
+
+
+    const bb =
+      bIndex === -1
+        ? 999
+        : bIndex;
+
+
+    if (
+      aa !== bb
+    ) {
+
+      return aa - bb;
+
+    }
+
+
+    return a.localeCompare(b);
+
+  }
+
+
+  /* =====================================
+     RENDER CATALOG
+     ===================================== */
+
+  function renderCatalog(
+    games
+  ) {
 
     const catalog =
       document.getElementById(
         'catalog'
       );
 
+
     catalog.innerHTML = '';
 
+
     if (
-      !Array.isArray(games) ||
-      games.length === 0
+      !games.length
     ) {
 
       catalog.innerHTML =
         '<div class="message">' +
-        'ยังไม่มีรายการเกม' +
+        'ไม่พบเกมที่ตรงกับตัวกรอง' +
         '</div>';
 
+
       return;
+
     }
 
-
-    const sortedGames =
-      sortGames(games);
 
     const seriesMap = {};
 
 
-    sortedGames.forEach(
-      function(game) {
+    sortGames(games)
+      .forEach(
+        function(game) {
 
-        const seriesName =
-          String(
-            game.series || ''
-          ).trim();
-
-        if (!seriesName) {
-          return;
-        }
-
-        if (!seriesMap[seriesName]) {
-          seriesMap[seriesName] = [];
-        }
-
-        seriesMap[seriesName]
-          .push(game);
-      }
-    );
+          const name =
+            String(
+              game.series || ''
+            ).trim();
 
 
-    const seriesOrder = [
-      'mystery collection',
-      'adventure',
-      'mini',
-      'party'
-    ];
+          if (!name) {
+            return;
+          }
 
 
-    /* หมวดที่กำหนดไว้ก่อน */
+          if (
+            !seriesMap[name]
+          ) {
 
-    seriesOrder.forEach(
-      function(targetName) {
+            seriesMap[name] =
+              [];
 
-        const actualSeriesName =
-          Object.keys(seriesMap)
-            .find(
-              function(seriesName) {
-                return (
-                  normalizeSeriesName(
-                    seriesName
-                  ) ===
-                  targetName
-                );
-              }
-            );
+          }
 
 
-        if (actualSeriesName) {
-
-          createSeries(
-            catalog,
-            actualSeriesName,
-            seriesMap[
-              actualSeriesName
-            ]
-          );
+          seriesMap[name]
+            .push(game);
 
         }
-
-      }
-    );
+      );
 
 
-    /* หมวดอื่น ๆ ต่อท้าย */
-
-    Object.keys(seriesMap)
+    Object
+      .keys(seriesMap)
+      .sort(
+        compareSeries
+      )
       .forEach(
         function(seriesName) {
 
-          const normalized =
-            normalizeSeriesName(
+          createSeries(
+            catalog,
+            seriesName,
+            seriesMap[
               seriesName
-            );
-
-          if (
-            !seriesOrder.includes(
-              normalized
-            )
-          ) {
-
-            createSeries(
-              catalog,
-              seriesName,
-              seriesMap[
-                seriesName
-              ]
-            );
-
-          }
+            ]
+          );
 
         }
       );
 
   }
 
+
+  /* =====================================
+     CREATE SERIES
+     ===================================== */
 
   function createSeries(
     catalog,
@@ -801,14 +2082,11 @@
     games
   ) {
 
-    games =
-      sortGames(games);
-
-
     const section =
       document.createElement(
         'section'
       );
+
 
     section.className =
       'series';
@@ -819,16 +2097,18 @@
         'div'
       );
 
+
     banner.className =
       'series-banner';
 
 
-    const heading =
+    const title =
       document.createElement(
         'h2'
       );
 
-    heading.textContent =
+
+    title.textContent =
       seriesName;
 
 
@@ -837,8 +2117,10 @@
         'span'
       );
 
+
     count.className =
       'series-count';
+
 
     count.textContent =
       games.length +
@@ -846,8 +2128,9 @@
 
 
     banner.appendChild(
-      heading
+      title
     );
+
 
     banner.appendChild(
       count
@@ -859,30 +2142,34 @@
         'div'
       );
 
+
     grid.className =
       'game-grid';
 
 
-    games.forEach(
-      function(game) {
+    sortGames(games)
+      .forEach(
+        function(game) {
 
-        grid.appendChild(
-          createGameCard(
-            game
-          )
-        );
+          grid.appendChild(
+            createGameCard(
+              game
+            )
+          );
 
-      }
-    );
+        }
+      );
 
 
     section.appendChild(
       banner
     );
 
+
     section.appendChild(
       grid
     );
+
 
     catalog.appendChild(
       section
@@ -896,12 +2183,19 @@
   }
 
 
-  function createGameCard(game) {
+  /* =====================================
+     GAME CARD
+     ===================================== */
+
+  function createGameCard(
+    game
+  ) {
 
     const card =
       document.createElement(
         'article'
       );
+
 
     card.className =
       'game-card';
@@ -912,6 +2206,7 @@
         'div'
       );
 
+
     cover.className =
       'cover';
 
@@ -921,10 +2216,12 @@
         'img'
       );
 
+
     img.alt =
       String(
         game.gameName || ''
       );
+
 
     img.loading =
       'lazy';
@@ -946,6 +2243,7 @@
         'div'
       );
 
+
     info.className =
       'game-info';
 
@@ -955,8 +2253,10 @@
         'div'
       );
 
+
     title.className =
       'game-title';
+
 
     title.textContent =
       String(
@@ -969,6 +2269,7 @@
         'div'
       );
 
+
     meta.className =
       'game-meta';
 
@@ -977,6 +2278,7 @@
       document.createElement(
         'div'
       );
+
 
     players.textContent =
       'ผู้เล่น ' +
@@ -991,6 +2293,7 @@
         'div'
       );
 
+
     time.textContent =
       'เวลา ' +
       String(
@@ -1003,6 +2306,7 @@
       players
     );
 
+
     meta.appendChild(
       time
     );
@@ -1013,8 +2317,10 @@
         'div'
       );
 
+
     price.className =
       'price';
+
 
     price.textContent =
       formatPrice(
@@ -1026,25 +2332,21 @@
       title
     );
 
+
     info.appendChild(
       meta
     );
+
 
     info.appendChild(
       price
     );
 
 
-    const status =
-      String(
-        game.status || ''
-      )
-      .trim()
-      .toLowerCase();
-
-
     if (
-      status ===
+      normalizeStatus(
+        game.status
+      ) ===
       'coming soon'
     ) {
 
@@ -1053,22 +2355,28 @@
           'div'
         );
 
+
       badge.className =
         'coming-soon';
+
 
       badge.textContent =
         'เร็ว ๆ นี้';
 
+
       info.appendChild(
         badge
       );
+
     }
 
 
     cover.addEventListener(
       'click',
       function() {
+
         openModal(game);
+
       }
     );
 
@@ -1076,7 +2384,9 @@
     title.addEventListener(
       'click',
       function() {
+
         openModal(game);
+
       }
     );
 
@@ -1085,14 +2395,20 @@
       cover
     );
 
+
     card.appendChild(
       info
     );
 
 
     return card;
+
   }
 
+
+  /* =====================================
+     COVER
+     ===================================== */
 
   function setCoverImage(
     img,
@@ -1131,10 +2447,13 @@
           'src'
         );
 
+
         img.alt =
           'No image';
 
+
         return;
+
       }
 
 
@@ -1146,6 +2465,7 @@
 
 
       index++;
+
     }
 
 
@@ -1154,8 +2474,13 @@
 
 
     tryNext();
+
   }
 
+
+  /* =====================================
+     SERIES IMAGE RATIO
+     ===================================== */
 
   function setSeriesRatio(
     section
@@ -1175,8 +2500,10 @@
 
     covers.forEach(
       function(cover) {
+
         cover.style.aspectRatio =
           '3 / 4';
+
       }
     );
 
@@ -1196,7 +2523,9 @@
         !firstImage.naturalWidth ||
         !firstImage.naturalHeight
       ) {
+
         return;
+
       }
 
 
@@ -1214,6 +2543,7 @@
 
         }
       );
+
     }
 
 
@@ -1235,11 +2565,19 @@
           once: true
         }
       );
+
     }
+
   }
 
 
-  function openModal(game) {
+  /* =====================================
+     MODAL
+     ===================================== */
+
+  function openModal(
+    game
+  ) {
 
     document
       .getElementById(
@@ -1301,9 +2639,6 @@
       );
 
 
-    cover.style.display =
-      'block';
-
     cover.alt =
       String(
         game.gameName || ''
@@ -1327,6 +2662,7 @@
 
     document.body.style.overflow =
       'hidden';
+
   }
 
 
@@ -1340,8 +2676,10 @@
         'open'
       );
 
+
     document.body.style.overflow =
       '';
+
   }
 
 
@@ -1367,7 +2705,9 @@
           event.target.id ===
           'modal'
         ) {
+
           closeModal();
+
         }
 
       }
@@ -1382,14 +2722,22 @@
         event.key ===
         'Escape'
       ) {
+
         closeModal();
+
       }
 
     }
   );
 
 
-  function formatPrice(value) {
+  /* =====================================
+     PRICE
+     ===================================== */
+
+  function formatPrice(
+    value
+  ) {
 
     const cleaned =
       String(
@@ -1412,7 +2760,9 @@
       !cleaned ||
       isNaN(number)
     ) {
+
       return '';
+
     }
 
 
@@ -1423,15 +2773,24 @@
       ) +
       ' / รอบ'
     );
+
   }
 
 
-  function showError(error) {
+  /* =====================================
+     ERROR
+     ===================================== */
+
+  function showError(
+    error
+  ) {
 
     const message =
       error &&
       error.message
+
         ? error.message
+
         : String(error);
 
 
@@ -1440,14 +2799,23 @@
         'catalog'
       )
       .innerHTML =
+
         '<div class="message error">' +
+
         'โหลดข้อมูลไม่สำเร็จ: ' +
-        escapeHtml(message) +
+
+        escapeHtml(
+          message
+        ) +
+
         '</div>';
+
   }
 
 
-  function escapeHtml(value) {
+  function escapeHtml(
+    value
+  ) {
 
     return String(
       value || ''
@@ -1477,9 +2845,11 @@
         /'/g,
         '&#039;'
       );
+
   }
 
 </script>
+
 
 </body>
 </html>
