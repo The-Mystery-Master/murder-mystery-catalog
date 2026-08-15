@@ -1,95 +1,853 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Murder Mystery</title>
+
+  <style>
+    :root {
+      --bg: #f4f1eb;
+      --text: #221f1c;
+      --muted: #746d65;
+      --accent: #7b2434;
+      --banner: #292724;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans Thai",
+        Tahoma,
+        sans-serif;
+    }
+
+    header {
+      padding: 24px 16px 10px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    main {
+      width: 100%;
+      padding: 0 16px 60px;
+    }
+
+    .series {
+      margin-top: 34px;
+    }
+
+    .series:first-child {
+      margin-top: 24px;
+    }
+
+    .series-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 14px 16px;
+
+      border-radius: 10px;
+
+      background: var(--banner);
+      color: var(--white);
+    }
+
+    .series-banner h2 {
+      margin: 0;
+      font-size: 23px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .series-count {
+      flex-shrink: 0;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* MOBILE DEFAULT = 2 COLUMNS */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px 14px;
+    }
+
+    .game-card {
+      min-width: 0;
+    }
+
+    .cover {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #ddd;
+      cursor: pointer;
+    }
+
+    .cover img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .no-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      color: #999;
+      font-size: 13px;
+    }
+
+    .game-info {
+      padding-top: 9px;
+    }
+
+    .game-title {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.3;
+      cursor: pointer;
+    }
+
+    .game-meta {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .price {
+      margin-top: 6px;
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .coming-soon {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #242424;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .message {
+      padding: 80px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .error {
+      color: #a00000;
+    }
+
+    /* MODAL - MOBILE */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 10px;
+      background: rgba(0,0,0,.68);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      position: relative;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 20px;
+      border-radius: 22px 22px 12px 12px;
+      background: #fff;
+      box-shadow: 0 20px 70px rgba(0,0,0,.25);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 40px;
+      height: 40px;
+      padding: 0;
+
+      border: 0;
+      border-radius: 50%;
+
+      background: #222;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .modal-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .modal-cover {
+      display: block;
+      width: min(70%, 300px);
+      max-height: 46vh;
+      margin: 0 auto;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .modal-title {
+      margin: 0 48px 14px 0;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f0ece6;
+      font-size: 15px;
+    }
+
+    .modal-price {
+      margin: 4px 0 20px;
+      color: var(--accent);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .story-title {
+      margin-bottom: 6px;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .story {
+      margin: 0;
+      color: #49433d;
+      font-size: 16px;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    /* DESKTOP = 4 COLUMNS */
+    @media (min-width: 900px) {
+      header {
+        padding: 30px 20px 10px;
+      }
+
+      header h1 {
+        font-size: 38px;
+      }
+
+      main {
+        width: min(920px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 0 0 70px;
+      }
+
+      .series {
+        margin-top: 42px;
+      }
+
+      .series-banner h2 {
+        font-size: 22px;
+      }
+
+      .game-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px 18px;
+      }
+
+      .game-title {
+        font-size: 15px;
+      }
+
+      .game-meta {
+        font-size: 13px;
+      }
+
+      .price {
+        font-size: 15px;
+      }
+
+      .modal {
+        align-items: center;
+        padding: 16px;
+      }
+
+      .modal-box {
+        width: min(800px, 100%);
+        max-height: 90vh;
+        padding: 26px;
+        border-radius: 20px;
+      }
+
+      .modal-content {
+        grid-template-columns: minmax(0, 280px) 1fr;
+        gap: 26px;
+      }
+
+      .modal-cover {
+        width: 100%;
+        max-height: 70vh;
+        margin: 0;
+      }
+
+      .modal-title {
+        font-size: 30px;
+      }
+
+      .chip {
+        font-size: 13px;
+      }
+
+      .story {
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
+<header>
   <h1>Murder Mystery</h1>
+</header>
 
-  <div id="status">
-    กำลังโหลดข้อมูล...
+<main id="catalog">
+  <div class="message">กำลังโหลดรายการเกม...</div>
+</main>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+
+    <button
+      class="modal-close"
+      id="closeButton"
+      type="button"
+      aria-label="ปิด"
+    >
+      ×
+    </button>
+
+    <div class="modal-content">
+
+      <img
+        id="modalCover"
+        class="modal-cover"
+        alt=""
+      >
+
+      <div>
+
+        <h3
+          id="modalTitle"
+          class="modal-title"
+        ></h3>
+
+        <div class="chips">
+          <span id="modalPlayers" class="chip"></span>
+          <span id="modalTime" class="chip"></span>
+        </div>
+
+        <div
+          id="modalPrice"
+          class="modal-price"
+        ></div>
+
+        <div class="story-title">
+          เรื่องย่อ
+        </div>
+
+        <p
+          id="modalStory"
+          class="story"
+        ></p>
+
+      </div>
+
+    </div>
   </div>
+</div>
 
-  <pre id="result"></pre>
-
-
-  <script>
-
-    const API_URL =
-      'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnSRWa6GtUXYb9wG7dnc5OJWKRrajxhVulHBALJTX89ejj_8-waq1vlAuUtxGRTbfmC8dmlOd17PPTRNw0KNn7zOlL4TOwr1o8xUE1h0BkwQ6P-pEnEjpWld5hcB9aTNKWLByeGco1t_x4XNooqfYUhiowr44urG52qNa2r6-k45SccnU21TDSaK88K0v8PWgGFmj-IBr_lrA70Y6SKwkGyskCil6ZSwC0E6TumapiuJDeWmx2Pl07A45UKR08UFLLK5cpwnp_-WWJDJC2FgVtK1bj4a1Q&lib=MYpqcSAzvQ4N4hWvOcjVJzf1z8h6xFa74';
+<script>
+  const API_URL =
+    'https://script.google.com/macros/s/AKfycbw661bYeWAZN6KsjPgU_w53E_2AqtFOwZQC2YDIYsK9gUmeotr2Le3Y9HaI9qsel7id/exec';
 
 
-    async function loadGames() {
-
-      const status =
-        document.getElementById('status');
-
-      const result =
-        document.getElementById('result');
+  loadGames();
 
 
-      try {
+  async function loadGames() {
+    try {
+      const response = await fetch(API_URL);
 
-        const response =
-          await fetch(API_URL);
-
-        if (!response.ok) {
-          throw new Error(
-            'HTTP ' + response.status
-          );
-        }
-
-        const data =
-          await response.json();
-
-
-        if (!data.success) {
-          throw new Error(
-            data.error || 'API Error'
-          );
-        }
-
-
-        status.textContent =
-          'โหลดสำเร็จ จำนวนเกม = ' +
-          data.games.length;
-
-        result.textContent =
-          JSON.stringify(
-            data.games,
-            null,
-            2
-          );
-
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
       }
 
-      catch (error) {
+      const data = await response.json();
 
-        status.textContent =
-          'โหลดไม่สำเร็จ';
-
-        result.textContent =
-          error.message;
-
+      if (!data.success) {
+        throw new Error(data.error || 'API Error');
       }
 
+      renderCatalog(data.games);
+
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+
+  function renderCatalog(games) {
+    const catalog =
+      document.getElementById('catalog');
+
+    catalog.innerHTML = '';
+
+    if (!Array.isArray(games) || games.length === 0) {
+      catalog.innerHTML =
+        '<div class="message">ยังไม่มีรายการเกม</div>';
+      return;
     }
 
+    const seriesMap = {};
 
-    loadGames();
+    games.forEach(function(game) {
+      const seriesName =
+        String(game.series || '').trim();
 
-  </script>
+      if (!seriesName) return;
+
+      if (!seriesMap[seriesName]) {
+        seriesMap[seriesName] = [];
+      }
+
+      seriesMap[seriesName].push(game);
+    });
+
+    Object.keys(seriesMap)
+      .forEach(function(seriesName) {
+        createSeries(
+          catalog,
+          seriesName,
+          seriesMap[seriesName]
+        );
+      });
+  }
+
+
+  function createSeries(
+    catalog,
+    seriesName,
+    games
+  ) {
+    const section =
+      document.createElement('section');
+
+    section.className = 'series';
+
+    const banner =
+      document.createElement('div');
+
+    banner.className = 'series-banner';
+
+    const heading =
+      document.createElement('h2');
+
+    heading.textContent = seriesName;
+
+    const count =
+      document.createElement('span');
+
+    count.className = 'series-count';
+
+    count.textContent =
+      games.length + ' เรื่อง';
+
+    banner.appendChild(heading);
+    banner.appendChild(count);
+
+    const grid =
+      document.createElement('div');
+
+    grid.className = 'game-grid';
+
+    games.forEach(function(game) {
+      grid.appendChild(
+        createGameCard(game)
+      );
+    });
+
+    section.appendChild(banner);
+    section.appendChild(grid);
+    catalog.appendChild(section);
+
+    setSeriesRatio(
+      section,
+      games
+    );
+  }
+
+
+  function createGameCard(game) {
+    const card =
+      document.createElement('article');
+
+    card.className = 'game-card';
+
+    const cover =
+      document.createElement('div');
+
+    cover.className = 'cover';
+
+    if (game.cover) {
+      const img =
+        document.createElement('img');
+
+      img.src = game.cover;
+      img.alt =
+        String(game.gameName || '');
+      img.loading = 'lazy';
+
+      cover.appendChild(img);
+
+    } else {
+      const noImage =
+        document.createElement('div');
+
+      noImage.className = 'no-image';
+      noImage.textContent = 'No image';
+
+      cover.appendChild(noImage);
+    }
+
+    const info =
+      document.createElement('div');
+
+    info.className = 'game-info';
+
+    const title =
+      document.createElement('div');
+
+    title.className = 'game-title';
+    title.textContent =
+      String(game.gameName || '');
+
+    const meta =
+      document.createElement('div');
+
+    meta.className = 'game-meta';
+
+    const players =
+      document.createElement('div');
+
+    players.textContent =
+      'ผู้เล่น ' +
+      String(game.players || '') +
+      ' คน';
+
+    const time =
+      document.createElement('div');
+
+    time.textContent =
+      'เวลา ' +
+      String(game.playTime || '') +
+      ' ชั่วโมง';
+
+    meta.appendChild(players);
+    meta.appendChild(time);
+
+    const price =
+      document.createElement('div');
+
+    price.className = 'price';
+    price.textContent =
+      formatPrice(game.price);
+
+    info.appendChild(title);
+    info.appendChild(meta);
+    info.appendChild(price);
+
+    const status =
+      String(game.status || '')
+        .trim()
+        .toLowerCase();
+
+    if (status === 'coming soon') {
+      const badge =
+        document.createElement('div');
+
+      badge.className = 'coming-soon';
+      badge.textContent = 'เร็ว ๆ นี้';
+
+      info.appendChild(badge);
+    }
+
+    cover.addEventListener(
+      'click',
+      function() {
+        openModal(game);
+      }
+    );
+
+    title.addEventListener(
+      'click',
+      function() {
+        openModal(game);
+      }
+    );
+
+    card.appendChild(cover);
+    card.appendChild(info);
+
+    return card;
+  }
+
+
+  function setSeriesRatio(
+    section,
+    games
+  ) {
+    const covers =
+      section.querySelectorAll('.cover');
+
+    covers.forEach(function(cover) {
+      cover.style.aspectRatio = '3 / 4';
+    });
+
+    const firstGame =
+      games.find(function(game) {
+        return (
+          game.cover &&
+          String(game.cover).trim() !== ''
+        );
+      });
+
+    if (!firstGame) return;
+
+    const testImage = new Image();
+
+    testImage.onload =
+      function() {
+        if (
+          !testImage.naturalWidth ||
+          !testImage.naturalHeight
+        ) {
+          return;
+        }
+
+        const ratio =
+          testImage.naturalWidth +
+          ' / ' +
+          testImage.naturalHeight;
+
+        covers.forEach(
+          function(cover) {
+            cover.style.aspectRatio =
+              ratio;
+          }
+        );
+      };
+
+    testImage.src =
+      firstGame.cover;
+  }
+
+
+  function openModal(game) {
+    document
+      .getElementById('modalTitle')
+      .textContent =
+        String(game.gameName || '');
+
+    document
+      .getElementById('modalPlayers')
+      .textContent =
+        'ผู้เล่น ' +
+        String(game.players || '') +
+        ' คน';
+
+    document
+      .getElementById('modalTime')
+      .textContent =
+        'เวลา ' +
+        String(game.playTime || '') +
+        ' ชั่วโมง';
+
+    document
+      .getElementById('modalPrice')
+      .textContent =
+        formatPrice(game.price);
+
+    document
+      .getElementById('modalStory')
+      .textContent =
+        String(game.synopsis || '');
+
+    const cover =
+      document.getElementById(
+        'modalCover'
+      );
+
+    if (game.cover) {
+      cover.src = game.cover;
+      cover.alt =
+        String(game.gameName || '');
+      cover.style.display = 'block';
+
+    } else {
+      cover.removeAttribute('src');
+      cover.style.display = 'none';
+    }
+
+    document
+      .getElementById('modal')
+      .classList.add('open');
+
+    document.body.style.overflow =
+      'hidden';
+  }
+
+
+  function closeModal() {
+    document
+      .getElementById('modal')
+      .classList.remove('open');
+
+    document.body.style.overflow = '';
+  }
+
+
+  document
+    .getElementById('closeButton')
+    .addEventListener(
+      'click',
+      closeModal
+    );
+
+
+  document
+    .getElementById('modal')
+    .addEventListener(
+      'click',
+      function(event) {
+        if (event.target.id === 'modal') {
+          closeModal();
+        }
+      }
+    );
+
+
+  document.addEventListener(
+    'keydown',
+    function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    }
+  );
+
+
+  function formatPrice(value) {
+    const cleaned =
+      String(value || '')
+        .replace(/,/g, '')
+        .trim();
+
+    const number =
+      Number(cleaned);
+
+    if (
+      !cleaned ||
+      isNaN(number)
+    ) {
+      return '';
+    }
+
+    return (
+      '฿' +
+      number.toLocaleString('th-TH') +
+      ' / รอบ'
+    );
+  }
+
+
+  function showError(error) {
+    const message =
+      error && error.message
+        ? error.message
+        : String(error);
+
+    document
+      .getElementById('catalog')
+      .innerHTML =
+        '<div class="message error">' +
+        'โหลดข้อมูลไม่สำเร็จ: ' +
+        escapeHtml(message) +
+        '</div>';
+  }
+
+
+  function escapeHtml(value) {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+</script>
 
 </body>
-
 </html>
