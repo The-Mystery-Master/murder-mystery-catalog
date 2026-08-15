@@ -9,6 +9,10 @@
     content="width=device-width, initial-scale=1.0"
   >
 
+  <!-- ไม่ให้ Search Engine ทำดัชนี -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow, noarchive">
+
   <title>Murder Mystery</title>
 
 
@@ -26,7 +30,6 @@
       --accent: #d65a6f;
 
       --line: #373737;
-      --banner: #292929;
       --white: #ffffff;
     }
 
@@ -63,7 +66,6 @@
 
     header {
       padding: 28px 16px 16px;
-
       text-align: center;
     }
 
@@ -95,7 +97,7 @@
 
 
     /* ========================================
-       FILTER BOX
+       FILTER
        ======================================== */
 
     .filter-panel {
@@ -119,11 +121,7 @@
     }
 
 
-    /* SEARCH */
-
     .search-box {
-      position: relative;
-
       width: 100%;
 
       margin-bottom: 10px;
@@ -167,8 +165,6 @@
         var(--accent);
     }
 
-
-    /* FILTER SELECTS */
 
     .filter-row {
       display: grid;
@@ -260,8 +256,7 @@
       border-color:
         var(--accent);
 
-      color:
-        #fff;
+      color: #fff;
     }
 
 
@@ -289,7 +284,7 @@
 
       width: 100%;
 
-      margin-bottom: 16px;
+      margin-bottom: 18px;
 
       padding:
         14px 16px;
@@ -341,17 +336,20 @@
 
 
     /* ========================================
-       MOBILE GRID = 2
+       GAME GRID
+       MOBILE = 2 ช่องต่อแถว
        ======================================== */
 
     .game-grid {
       display: grid;
 
       grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(2, minmax(0,1fr));
 
       column-gap: 14px;
-      row-gap: 30px;
+      row-gap: 32px;
+
+      align-items: start;
     }
 
 
@@ -362,12 +360,36 @@
 
     /* ========================================
        COVER
+
+       สำคัญ:
+       พื้นที่ของแต่ละเกมกว้างเท่ากัน
+       แต่ตัวปกจริงไม่ถูกบังคับความกว้าง
+
+       ปกทั้งหมดสูงเท่ากัน
        ======================================== */
 
-    .cover {
+    .cover-area {
       width: 100%;
 
-      aspect-ratio: 3 / 4;
+      height: 230px;
+
+      display: flex;
+
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+
+    .cover {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: auto;
+      max-width: 100%;
+
+      height: 230px;
 
       overflow: hidden;
 
@@ -377,7 +399,7 @@
       border-radius: 10px;
 
       background:
-        var(--surface-2);
+        transparent;
 
       box-shadow:
         0 5px 18px
@@ -400,7 +422,9 @@
     .cover img {
       display: block;
 
-      width: 100%;
+      width: auto;
+      max-width: 100%;
+
       height: 100%;
 
       object-fit: contain;
@@ -412,7 +436,7 @@
        ======================================== */
 
     .game-info {
-      padding-top: 9px;
+      padding-top: 10px;
     }
 
 
@@ -504,7 +528,7 @@
 
 
     /* ========================================
-       MODAL MOBILE
+       MODAL
        ======================================== */
 
     .modal {
@@ -603,8 +627,10 @@
     .modal-cover {
       display: block;
 
-      width:
-        min(70%,300px);
+      width: auto;
+
+      max-width:
+        min(80%,300px);
 
       max-height: 46vh;
 
@@ -711,7 +737,7 @@
 
 
       header h1 {
-        font-size: 54px;
+        font-size: 58px;
       }
 
 
@@ -771,7 +797,7 @@
 
 
       .series-banner {
-        margin-bottom: 22px;
+        margin-bottom: 24px;
 
         padding:
           17px 20px;
@@ -790,7 +816,7 @@
       }
 
 
-      /* 4 COLUMNS */
+      /* 4 GAMES PER ROW */
 
       .game-grid {
         grid-template-columns:
@@ -798,12 +824,26 @@
 
         column-gap: 26px;
 
-        row-gap: 38px;
+        row-gap: 40px;
+      }
+
+
+      /*
+       * ปกบนคอมสูงเท่ากัน 245px
+       * แต่ความกว้างตามสัดส่วนจริง
+       */
+
+      .cover-area {
+        height: 245px;
       }
 
 
       .cover {
-        border-radius: 12px;
+        height: 245px;
+
+        max-width: 100%;
+
+        border-radius: 11px;
       }
 
 
@@ -861,7 +901,7 @@
       }
 
 
-      /* MODAL */
+      /* MODAL DESKTOP */
 
       .modal {
         align-items: center;
@@ -891,11 +931,13 @@
 
 
       .modal-cover {
-        width: 100%;
+        width: auto;
+
+        max-width: 100%;
 
         max-height: 72vh;
 
-        margin: 0;
+        margin: 0 auto;
       }
 
 
@@ -942,7 +984,7 @@
 <main>
 
   <!-- =====================================
-       FILTERS
+       FILTER
        ===================================== -->
 
   <div class="filter-panel">
@@ -965,6 +1007,7 @@
         id="statusFilter"
         class="filter-select"
       >
+
         <option value="">
           ทุกสถานะ
         </option>
@@ -976,6 +1019,7 @@
         <option value="coming soon">
           เร็ว ๆ นี้
         </option>
+
       </select>
 
 
@@ -983,9 +1027,11 @@
         id="playerFilter"
         class="filter-select"
       >
+
         <option value="">
           ผู้เล่นทุกจำนวน
         </option>
+
       </select>
 
 
@@ -993,6 +1039,7 @@
         id="timeFilter"
         class="filter-select"
       >
+
         <option value="">
           ทุกเวลา
         </option>
@@ -1008,6 +1055,7 @@
         <option value="5">
           5 ชั่วโมงขึ้นไป
         </option>
+
       </select>
 
 
@@ -1015,9 +1063,11 @@
         id="seriesFilter"
         class="filter-select"
       >
+
         <option value="">
           ทุกหมวด
         </option>
+
       </select>
 
     </div>
@@ -1043,8 +1093,6 @@
 
   </div>
 
-
-  <!-- CATALOG -->
 
   <div id="catalog">
 
@@ -1072,6 +1120,7 @@
       class="modal-close"
       id="closeButton"
       type="button"
+      aria-label="ปิด"
     >
       ×
     </button>
@@ -1156,7 +1205,7 @@
 
 
   /* =====================================
-     LOAD
+     LOAD DATA
      ===================================== */
 
   async function loadGames() {
@@ -1331,36 +1380,33 @@
       );
 
 
-    const ordered =
-      [...names]
-        .sort(
-          compareSeries
-        );
+    [...names]
+      .sort(
+        compareSeries
+      )
+      .forEach(
+        function(name) {
+
+          const option =
+            document.createElement(
+              'option'
+            );
 
 
-    ordered.forEach(
-      function(name) {
+          option.value =
+            name;
 
-        const option =
-          document.createElement(
-            'option'
+
+          option.textContent =
+            name;
+
+
+          select.appendChild(
+            option
           );
 
-
-        option.value =
-          name;
-
-
-        option.textContent =
-          name;
-
-
-        select.appendChild(
-          option
-        );
-
-      }
-    );
+        }
+      );
 
   }
 
@@ -1520,6 +1566,7 @@
       allGames.filter(
         function(game) {
 
+
           /* SEARCH */
 
           if (search) {
@@ -1562,7 +1609,7 @@
           }
 
 
-          /* PLAYERS */
+          /* PLAYER */
 
           if (player) {
 
@@ -1640,7 +1687,7 @@
 
 
   /* =====================================
-     PLAYER FILTER
+     PLAYER
      ===================================== */
 
   function parsePlayerRange(value) {
@@ -1725,7 +1772,7 @@
 
 
   /* =====================================
-     TIME FILTER
+     TIME
      ===================================== */
 
   function parseTime(value) {
@@ -1809,7 +1856,7 @@
 
 
   /* =====================================
-     SORTING
+     SORT
      ===================================== */
 
   function normalizeStatus(
@@ -1984,7 +2031,7 @@
 
 
   /* =====================================
-     RENDER CATALOG
+     CATALOG
      ===================================== */
 
   function renderCatalog(
@@ -2000,9 +2047,7 @@
     catalog.innerHTML = '';
 
 
-    if (
-      !games.length
-    ) {
+    if (!games.length) {
 
       catalog.innerHTML =
         '<div class="message">' +
@@ -2073,7 +2118,7 @@
 
 
   /* =====================================
-     CREATE SERIES
+     SERIES
      ===================================== */
 
   function createSeries(
@@ -2175,11 +2220,6 @@
       section
     );
 
-
-    setSeriesRatio(
-      section
-    );
-
   }
 
 
@@ -2200,6 +2240,20 @@
     card.className =
       'game-card';
 
+
+    /* COVER AREA */
+
+    const coverArea =
+      document.createElement(
+        'div'
+      );
+
+
+    coverArea.className =
+      'cover-area';
+
+
+    /* COVER */
 
     const cover =
       document.createElement(
@@ -2237,6 +2291,13 @@
       img
     );
 
+
+    coverArea.appendChild(
+      cover
+    );
+
+
+    /* INFO */
 
     const info =
       document.createElement(
@@ -2392,7 +2453,7 @@
 
 
     card.appendChild(
-      cover
+      coverArea
     );
 
 
@@ -2407,7 +2468,7 @@
 
 
   /* =====================================
-     COVER
+     COVER IMAGE
      ===================================== */
 
   function setCoverImage(
@@ -2474,99 +2535,6 @@
 
 
     tryNext();
-
-  }
-
-
-  /* =====================================
-     SERIES IMAGE RATIO
-     ===================================== */
-
-  function setSeriesRatio(
-    section
-  ) {
-
-    const covers =
-      section.querySelectorAll(
-        '.cover'
-      );
-
-
-    const images =
-      section.querySelectorAll(
-        '.cover img'
-      );
-
-
-    covers.forEach(
-      function(cover) {
-
-        cover.style.aspectRatio =
-          '3 / 4';
-
-      }
-    );
-
-
-    if (!images.length) {
-      return;
-    }
-
-
-    const firstImage =
-      images[0];
-
-
-    function applyRatio() {
-
-      if (
-        !firstImage.naturalWidth ||
-        !firstImage.naturalHeight
-      ) {
-
-        return;
-
-      }
-
-
-      const ratio =
-        firstImage.naturalWidth +
-        ' / ' +
-        firstImage.naturalHeight;
-
-
-      covers.forEach(
-        function(cover) {
-
-          cover.style.aspectRatio =
-            ratio;
-
-        }
-      );
-
-    }
-
-
-    if (
-      firstImage.complete &&
-      firstImage.naturalWidth
-    ) {
-
-      applyRatio();
-
-    }
-
-    else {
-
-      firstImage.addEventListener(
-        'load',
-        applyRatio,
-        {
-          once: true
-        }
-      );
-
-    }
 
   }
 
