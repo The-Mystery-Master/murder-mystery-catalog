@@ -67,22 +67,32 @@
       margin-top: 24px;
     }
 
-    .series-banner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+.series-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 
-      width: 100%;
-      margin-bottom: 16px;
-      padding: 14px 16px;
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 14px 16px;
 
-      border: 1px solid var(--line);
-      border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 10px;
 
-      background: var(--banner);
-      color: var(--white);
-    }
+  background:
+    linear-gradient(
+      110deg,
+      #7b2434 0%,
+      #5b2747 48%,
+      #292542 100%
+    );
+
+  color: var(--white);
+
+  box-shadow:
+    0 6px 18px rgba(123, 36, 52, .22);
+}
 
     .series-banner h2 {
       margin: 0;
