@@ -42,10 +42,6 @@
         sans-serif;
     }
 
-    /* ========================================
-       HEADER
-       ======================================== */
-
     header {
       padding: 24px 16px 10px;
       text-align: center;
@@ -58,18 +54,10 @@
       font-weight: 800;
     }
 
-    /* ========================================
-       MAIN
-       ======================================== */
-
     main {
       width: 100%;
       padding: 0 16px 60px;
     }
-
-    /* ========================================
-       SERIES
-       ======================================== */
 
     .series {
       margin-top: 36px;
@@ -111,10 +99,7 @@
       font-weight: 600;
     }
 
-    /* ========================================
-       MOBILE = 2 COLUMNS
-       ======================================== */
-
+    /* MOBILE = 2 COLUMNS */
     .game-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -125,10 +110,6 @@
     .game-card {
       min-width: 0;
     }
-
-    /* ========================================
-       COVER
-       ======================================== */
 
     .cover {
       width: 100%;
@@ -162,45 +143,31 @@
       object-fit: contain;
     }
 
-    /* ========================================
-       GAME INFO
-       ======================================== */
-
     .game-info {
       padding-top: 9px;
     }
 
     .game-title {
       color: var(--text);
-
       font-size: 18px;
       font-weight: 800;
       line-height: 1.3;
-
       cursor: pointer;
     }
 
     .game-meta {
       margin-top: 7px;
-
       color: var(--muted);
-
       font-size: 15px;
       line-height: 1.45;
     }
 
     .price {
       margin-top: 6px;
-
       color: var(--accent);
-
       font-size: 17px;
       font-weight: 800;
     }
-
-    /* ========================================
-       COMING SOON
-       ======================================== */
 
     .coming-soon {
       display: inline-block;
@@ -218,17 +185,10 @@
       font-weight: 700;
     }
 
-    /* ========================================
-       MESSAGE
-       ======================================== */
-
     .message {
       padding: 80px 20px;
-
       text-align: center;
-
       color: var(--muted);
-
       font-size: 16px;
     }
 
@@ -236,10 +196,7 @@
       color: #ff7c8d;
     }
 
-    /* ========================================
-       MODAL - MOBILE
-       ======================================== */
-
+    /* MODAL MOBILE */
     .modal {
       display: none;
 
@@ -284,10 +241,8 @@
 
     .modal-close {
       position: absolute;
-
       top: 12px;
       right: 12px;
-
       z-index: 2;
 
       display: flex;
@@ -306,7 +261,6 @@
       color: #fff;
 
       font-size: 24px;
-
       cursor: pointer;
     }
 
@@ -318,22 +272,16 @@
 
     .modal-cover {
       display: block;
-
       width: min(70%, 300px);
       max-height: 46vh;
-
       margin: 0 auto;
-
       object-fit: contain;
-
       border-radius: 10px;
     }
 
     .modal-title {
       margin: 0 48px 14px 0;
-
       color: var(--text);
-
       font-size: 26px;
       font-weight: 800;
       line-height: 1.3;
@@ -342,57 +290,42 @@
     .chips {
       display: flex;
       flex-wrap: wrap;
-
       gap: 8px;
-
       margin-bottom: 12px;
     }
 
     .chip {
       padding: 8px 12px;
-
       border: 1px solid #3d3d3d;
       border-radius: 999px;
-
       background: var(--surface-2);
       color: #ddd;
-
       font-size: 15px;
     }
 
     .modal-price {
       margin: 4px 0 20px;
-
       color: var(--accent);
-
       font-size: 19px;
       font-weight: 800;
     }
 
     .story-title {
       margin-bottom: 6px;
-
       color: var(--text);
-
       font-size: 17px;
       font-weight: 800;
     }
 
     .story {
       margin: 0;
-
       color: #d0cbc5;
-
       font-size: 16px;
       line-height: 1.7;
-
       white-space: pre-line;
     }
 
-    /* ========================================
-       DESKTOP
-       ======================================== */
-
+    /* DESKTOP */
     @media (min-width: 900px) {
 
       header {
@@ -404,10 +337,8 @@
       }
 
       main {
-        width: min(1100px, calc(100% - 48px));
-
+        width: min(960px, calc(100% - 48px));
         margin: 0 auto;
-
         padding: 0 0 80px;
       }
 
@@ -421,9 +352,7 @@
 
       .series-banner {
         margin-bottom: 22px;
-
         padding: 17px 20px;
-
         border-radius: 12px;
       }
 
@@ -435,13 +364,11 @@
         font-size: 14px;
       }
 
-      /* 4 COLUMNS */
-
       .game-grid {
         grid-template-columns:
           repeat(4, minmax(0, 1fr));
 
-        column-gap: 22px;
+        column-gap: 26px;
         row-gap: 38px;
       }
 
@@ -471,49 +398,38 @@
 
       .game-meta {
         margin-top: 8px;
-
         font-size: 15px;
         line-height: 1.5;
       }
 
       .price {
         margin-top: 7px;
-
         font-size: 18px;
       }
 
       .coming-soon {
         margin-top: 10px;
-
         padding: 6px 12px;
-
         font-size: 13px;
       }
 
-      /* DESKTOP MODAL */
-
       .modal {
         align-items: center;
-
         padding: 20px;
       }
 
       .modal-box {
         width: min(900px, 100%);
         max-height: 90vh;
-
         padding: 30px;
-
         border-radius: 20px;
       }
 
       .modal-close {
         top: 14px;
         right: 14px;
-
         width: 42px;
         height: 42px;
-
         font-size: 25px;
       }
 
@@ -527,25 +443,21 @@
       .modal-cover {
         width: 100%;
         max-height: 72vh;
-
         margin: 0;
       }
 
       .modal-title {
         margin-right: 50px;
-
         font-size: 32px;
       }
 
       .chips {
         gap: 9px;
-
         margin-bottom: 15px;
       }
 
       .chip {
         padding: 8px 13px;
-
         font-size: 15px;
       }
 
@@ -578,16 +490,10 @@
   </div>
 </main>
 
-
-<!-- ========================================
-     MODAL
-     ======================================== -->
-
 <div
   class="modal"
   id="modal"
 >
-
   <div class="modal-box">
 
     <button
@@ -615,17 +521,8 @@
         ></h3>
 
         <div class="chips">
-
-          <span
-            id="modalPlayers"
-            class="chip"
-          ></span>
-
-          <span
-            id="modalTime"
-            class="chip"
-          ></span>
-
+          <span id="modalPlayers" class="chip"></span>
+          <span id="modalTime" class="chip"></span>
         </div>
 
         <div
@@ -647,9 +544,7 @@
     </div>
 
   </div>
-
 </div>
-
 
 <script>
 
@@ -660,10 +555,6 @@
   loadGames();
 
 
-  /* ========================================
-     LOAD DATA
-     ======================================== */
-
   async function loadGames() {
 
     try {
@@ -671,30 +562,20 @@
       const response =
         await fetch(API_URL);
 
-
       if (!response.ok) {
-
         throw new Error(
-          'HTTP ' +
-          response.status
+          'HTTP ' + response.status
         );
-
       }
-
 
       const data =
         await response.json();
 
-
       if (!data.success) {
-
         throw new Error(
-          data.error ||
-          'API Error'
+          data.error || 'API Error'
         );
-
       }
-
 
       renderCatalog(
         data.games
@@ -703,17 +584,11 @@
     }
 
     catch (error) {
-
       showError(error);
-
     }
 
   }
 
-
-  /* ========================================
-     STATUS ORDER
-     ======================================== */
 
   function getStatusRank(status) {
 
@@ -722,25 +597,17 @@
         .trim()
         .toLowerCase();
 
-
     if (value === 'active') {
       return 0;
     }
-
 
     if (value === 'coming soon') {
       return 1;
     }
 
-
     return 2;
-
   }
 
-
-  /* ========================================
-     GAME ID ORDER
-     ======================================== */
 
   function compareGameId(
     idA,
@@ -756,13 +623,8 @@
           sensitivity: 'base'
         }
       );
-
   }
 
-
-  /* ========================================
-     SORT
-     ======================================== */
 
   function sortGames(games) {
 
@@ -774,30 +636,27 @@
             getStatusRank(a.status) -
             getStatusRank(b.status);
 
-
           if (
             statusDifference !== 0
           ) {
-
             return statusDifference;
-
           }
-
 
           return compareGameId(
             a.gameId,
             b.gameId
           );
-
         }
       );
-
   }
 
 
-  /* ========================================
-     RENDER
-     ======================================== */
+  function normalizeSeriesName(name) {
+    return String(name || '')
+      .trim()
+      .toLowerCase();
+  }
+
 
   function renderCatalog(games) {
 
@@ -806,9 +665,7 @@
         'catalog'
       );
 
-
     catalog.innerHTML = '';
-
 
     if (
       !Array.isArray(games) ||
@@ -821,13 +678,11 @@
         '</div>';
 
       return;
-
     }
 
 
     const sortedGames =
       sortGames(games);
-
 
     const seriesMap = {};
 
@@ -840,48 +695,95 @@
             game.series || ''
           ).trim();
 
-
         if (!seriesName) {
           return;
         }
 
-
-        if (
-          !seriesMap[seriesName]
-        ) {
-
-          seriesMap[seriesName] =
-            [];
-
+        if (!seriesMap[seriesName]) {
+          seriesMap[seriesName] = [];
         }
-
 
         seriesMap[seriesName]
           .push(game);
+      }
+    );
+
+
+    const seriesOrder = [
+      'mystery collection',
+      'adventure',
+      'mini',
+      'party'
+    ];
+
+
+    /* หมวดที่กำหนดไว้ก่อน */
+
+    seriesOrder.forEach(
+      function(targetName) {
+
+        const actualSeriesName =
+          Object.keys(seriesMap)
+            .find(
+              function(seriesName) {
+                return (
+                  normalizeSeriesName(
+                    seriesName
+                  ) ===
+                  targetName
+                );
+              }
+            );
+
+
+        if (actualSeriesName) {
+
+          createSeries(
+            catalog,
+            actualSeriesName,
+            seriesMap[
+              actualSeriesName
+            ]
+          );
+
+        }
 
       }
     );
 
 
+    /* หมวดอื่น ๆ ต่อท้าย */
+
     Object.keys(seriesMap)
       .forEach(
         function(seriesName) {
 
-          createSeries(
-            catalog,
-            seriesName,
-            seriesMap[seriesName]
-          );
+          const normalized =
+            normalizeSeriesName(
+              seriesName
+            );
+
+          if (
+            !seriesOrder.includes(
+              normalized
+            )
+          ) {
+
+            createSeries(
+              catalog,
+              seriesName,
+              seriesMap[
+                seriesName
+              ]
+            );
+
+          }
 
         }
       );
 
   }
 
-
-  /* ========================================
-     SERIES
-     ======================================== */
 
   function createSeries(
     catalog,
@@ -898,7 +800,6 @@
         'section'
       );
 
-
     section.className =
       'series';
 
@@ -907,7 +808,6 @@
       document.createElement(
         'div'
       );
-
 
     banner.className =
       'series-banner';
@@ -918,7 +818,6 @@
         'h2'
       );
 
-
     heading.textContent =
       seriesName;
 
@@ -928,10 +827,8 @@
         'span'
       );
 
-
     count.className =
       'series-count';
-
 
     count.textContent =
       games.length +
@@ -942,7 +839,6 @@
       heading
     );
 
-
     banner.appendChild(
       count
     );
@@ -952,7 +848,6 @@
       document.createElement(
         'div'
       );
-
 
     grid.className =
       'game-grid';
@@ -975,11 +870,9 @@
       banner
     );
 
-
     section.appendChild(
       grid
     );
-
 
     catalog.appendChild(
       section
@@ -993,17 +886,12 @@
   }
 
 
-  /* ========================================
-     GAME CARD
-     ======================================== */
-
   function createGameCard(game) {
 
     const card =
       document.createElement(
         'article'
       );
-
 
     card.className =
       'game-card';
@@ -1014,7 +902,6 @@
         'div'
       );
 
-
     cover.className =
       'cover';
 
@@ -1024,12 +911,10 @@
         'img'
       );
 
-
     img.alt =
       String(
         game.gameName || ''
       );
-
 
     img.loading =
       'lazy';
@@ -1051,7 +936,6 @@
         'div'
       );
 
-
     info.className =
       'game-info';
 
@@ -1061,10 +945,8 @@
         'div'
       );
 
-
     title.className =
       'game-title';
-
 
     title.textContent =
       String(
@@ -1077,7 +959,6 @@
         'div'
       );
 
-
     meta.className =
       'game-meta';
 
@@ -1086,7 +967,6 @@
       document.createElement(
         'div'
       );
-
 
     players.textContent =
       'ผู้เล่น ' +
@@ -1101,7 +981,6 @@
         'div'
       );
 
-
     time.textContent =
       'เวลา ' +
       String(
@@ -1114,7 +993,6 @@
       players
     );
 
-
     meta.appendChild(
       time
     );
@@ -1125,10 +1003,8 @@
         'div'
       );
 
-
     price.className =
       'price';
-
 
     price.textContent =
       formatPrice(
@@ -1140,11 +1016,9 @@
       title
     );
 
-
     info.appendChild(
       meta
     );
-
 
     info.appendChild(
       price
@@ -1169,28 +1043,22 @@
           'div'
         );
 
-
       badge.className =
         'coming-soon';
-
 
       badge.textContent =
         'เร็ว ๆ นี้';
 
-
       info.appendChild(
         badge
       );
-
     }
 
 
     cover.addEventListener(
       'click',
       function() {
-
         openModal(game);
-
       }
     );
 
@@ -1198,9 +1066,7 @@
     title.addEventListener(
       'click',
       function() {
-
         openModal(game);
-
       }
     );
 
@@ -1209,20 +1075,14 @@
       cover
     );
 
-
     card.appendChild(
       info
     );
 
 
     return card;
-
   }
 
-
-  /* ========================================
-     COVER IMAGE
-     ======================================== */
 
   function setCoverImage(
     img,
@@ -1261,13 +1121,10 @@
           'src'
         );
 
-
         img.alt =
           'No image';
 
-
         return;
-
       }
 
 
@@ -1279,7 +1136,6 @@
 
 
       index++;
-
     }
 
 
@@ -1288,13 +1144,8 @@
 
 
     tryNext();
-
   }
 
-
-  /* ========================================
-     SERIES COVER RATIO
-     ======================================== */
 
   function setSeriesRatio(
     section
@@ -1314,10 +1165,8 @@
 
     covers.forEach(
       function(cover) {
-
         cover.style.aspectRatio =
           '3 / 4';
-
       }
     );
 
@@ -1337,9 +1186,7 @@
         !firstImage.naturalWidth ||
         !firstImage.naturalHeight
       ) {
-
         return;
-
       }
 
 
@@ -1357,7 +1204,6 @@
 
         }
       );
-
     }
 
 
@@ -1379,15 +1225,9 @@
           once: true
         }
       );
-
     }
-
   }
 
-
-  /* ========================================
-     OPEN MODAL
-     ======================================== */
 
   function openModal(game) {
 
@@ -1454,7 +1294,6 @@
     cover.style.display =
       'block';
 
-
     cover.alt =
       String(
         game.gameName || ''
@@ -1478,13 +1317,8 @@
 
     document.body.style.overflow =
       'hidden';
-
   }
 
-
-  /* ========================================
-     CLOSE MODAL
-     ======================================== */
 
   function closeModal() {
 
@@ -1496,10 +1330,8 @@
         'open'
       );
 
-
     document.body.style.overflow =
       '';
-
   }
 
 
@@ -1525,9 +1357,7 @@
           event.target.id ===
           'modal'
         ) {
-
           closeModal();
-
         }
 
       }
@@ -1542,18 +1372,12 @@
         event.key ===
         'Escape'
       ) {
-
         closeModal();
-
       }
 
     }
   );
 
-
-  /* ========================================
-     PRICE
-     ======================================== */
 
   function formatPrice(value) {
 
@@ -1578,9 +1402,7 @@
       !cleaned ||
       isNaN(number)
     ) {
-
       return '';
-
     }
 
 
@@ -1591,22 +1413,15 @@
       ) +
       ' / รอบ'
     );
-
   }
 
-
-  /* ========================================
-     ERROR
-     ======================================== */
 
   function showError(error) {
 
     const message =
       error &&
       error.message
-
         ? error.message
-
         : String(error);
 
 
@@ -1615,17 +1430,10 @@
         'catalog'
       )
       .innerHTML =
-
         '<div class="message error">' +
-
         'โหลดข้อมูลไม่สำเร็จ: ' +
-
-        escapeHtml(
-          message
-        ) +
-
+        escapeHtml(message) +
         '</div>';
-
   }
 
 
@@ -1659,7 +1467,6 @@
         /'/g,
         '&#039;'
       );
-
   }
 
 </script>
